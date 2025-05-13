@@ -10,15 +10,32 @@ import {
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useForm } from "react-hook-form";
+import { useForm, type FieldValues } from "react-hook-form";
+import { fetchLogin } from "@/backend/store/modules/user";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import type { AnyAction } from "@reduxjs/toolkit";
 
 export function Login() {
   const form = useForm();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((fromValue) => {
+        onSubmit={form.handleSubmit(async (fromValue: FieldValues) => {
           console.log(fromValue);
+          //触发异步
+          await dispatch(fetchLogin(fromValue) as unknown as AnyAction);
+          navigate("/"); //跳转至首页
+          toast.success("登录成功", {
+            description: "Sunday, December 03, 2023 at 9:00 AM",
+            action: {
+              label: "关闭",
+              onClick: () => console.log("Undo"),
+            },
+          });
         })}
       >
         <Card className="w-[350px] absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-[0_0_50px_rgba(0,0,0,0.2)]">
@@ -30,11 +47,11 @@ export function Login() {
             <form>
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="phone">手机号</Label>
+                  <Label htmlFor="mobile">手机号</Label>
                   <Input
-                    id="phone"
+                    id="mobile"
                     placeholder="请输入您的手机号"
-                    {...form.register("phone")}
+                    {...form.register("mobile")}
                   />
                 </div>
                 <div className="flex flex-col space-y-1.5">
