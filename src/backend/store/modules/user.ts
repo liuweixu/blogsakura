@@ -1,14 +1,19 @@
-import { request } from "@/backend/utils/request";
 import { createSlice } from "@reduxjs/toolkit";
 import type { FieldValues } from "react-hook-form";
 import type { AppDispatch } from "@/backend/store";
-import { getToken, setToken as _setToken } from "@/backend/utils";
+import {
+  getToken,
+  setToken as _setToken,
+  removeToken as clearToken,
+} from "@/backend/utils";
+import { getProfileAPI, loginAPI } from "@/backend/assets/user";
 
 const userStore = createSlice({
   name: "user",
   // 数据状态
   initialState: {
     token: getToken() || "",
+    userInfo: {},
   },
   // 同步修改方法
   reducers: {
@@ -17,20 +22,34 @@ const userStore = createSlice({
       // 本地存一份
       _setToken(action.payload); //防止与方法同名
     },
+    setUserInfo(state, action) {
+      state.userInfo = action.payload;
+    },
+    clearUserInfo(state) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      (state.token = ""), (state.userInfo = {}), clearToken();
+    },
   },
 });
 
 //异步方法
 const fetchLogin = (loginForm: FieldValues) => {
   return async (dispatch: AppDispatch) => {
-    const res = await request.post("/authorizations", loginForm);
+    const res = await loginAPI(loginForm);
     dispatch(setToken(res.data.token));
   };
 };
-const { setToken } = userStore.actions;
+
+const fetchUserInfo = () => {
+  return async (dispatch: AppDispatch) => {
+    const res = await getProfileAPI();
+    dispatch(setUserInfo(res.data));
+  };
+};
+const { setToken, setUserInfo, clearUserInfo } = userStore.actions;
 
 const userReducer = userStore.reducer;
 
-export { fetchLogin, setToken };
+export { fetchLogin, setToken, fetchUserInfo, clearUserInfo };
 
 export default userReducer;

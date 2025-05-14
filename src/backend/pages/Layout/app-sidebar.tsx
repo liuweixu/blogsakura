@@ -64,20 +64,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               <SidebarMenu>
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton
-                      asChild
-                      onClick={(e) => {
-                        e.preventDefault();
-                        menuClick(item);
-                        setPathame(item.url);
-                      }}
-                      className={classNames({
-                        "bg-accent text-accent-foreground font-bold shadow-md bg-primary/15":
-                          pathname === item.url,
-                        "hover:bg-accent/00": pathname !== item.url,
-                      })}
-                    >
-                      <a href={item.url}>{item.title}</a>
+                    <SidebarMenuButton asChild>
+                      <a
+                        href={item.url}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          menuClick(item);
+                          setPathame(item.url);
+                        }}
+                        className={classNames({
+                          "bg-accent text-accent-foreground font-bold shadow-md bg-primary/15":
+                            pathname === item.url,
+                          "hover:bg-accent/00": pathname !== item.url,
+                        })}
+                      >
+                        {item.title}
+                      </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
