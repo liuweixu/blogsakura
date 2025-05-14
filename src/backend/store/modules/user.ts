@@ -6,7 +6,7 @@ import {
   setToken as _setToken,
   removeToken as clearToken,
 } from "@/backend/utils";
-import { getProfileAPI, loginAPI } from "@/backend/assets/user";
+import { getProfileAPI, loginAPI } from "@/backend/apis/user";
 
 const userStore = createSlice({
   name: "user",
