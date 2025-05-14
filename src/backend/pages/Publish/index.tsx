@@ -29,6 +29,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import RichTextEditor from "@/backend/components/Editor";
+
 export function Publish() {
   const form = useForm();
 
@@ -72,10 +74,10 @@ export function Publish() {
               }}
               defaultValue={form.watch("channel")}
             >
-              <SelectTrigger id="channel" className="w-1/1">
+              <SelectTrigger id="channel" className="w-1/1 relative z-50">
                 <SelectValue placeholder="Select" />
               </SelectTrigger>
-              <SelectContent position="popper">
+              <SelectContent position="popper" className="relative z-50">
                 <SelectItem value="js">JS</SelectItem>
                 <SelectItem value="react">React</SelectItem>
                 <SelectItem value="python">Python</SelectItem>
@@ -85,7 +87,9 @@ export function Publish() {
           </FormControl>
           <FormDescription></FormDescription>
           <FormLabel>内容</FormLabel>
-          <FormControl></FormControl>
+          <FormControl>
+            <RichTextEditor />
+          </FormControl>
           <FormDescription></FormDescription>
         </FormItem>
         <Button type="submit">Submit</Button>
