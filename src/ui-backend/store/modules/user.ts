@@ -1,12 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { FieldValues } from "react-hook-form";
-import type { AppDispatch } from "@/backend/store";
+import type { AppDispatch } from "@/ui-backend/store";
 import {
   getToken,
   setToken as _setToken,
   removeToken as clearToken,
-} from "@/backend/utils";
-import { getProfileAPI, loginAPI } from "@/backend/apis/user";
+} from "@/ui-backend/utils";
+import { getProfileAPI, loginAPI } from "@/ui-backend/apis/user";
 
 const userStore = createSlice({
   name: "user",

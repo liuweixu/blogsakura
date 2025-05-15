@@ -1,11 +1,11 @@
-import { Login } from "@/backend/pages/Login";
-import { Layout } from "@/backend/pages/Layout";
+import { Login } from "@/ui-backend/pages/Login";
+import { Layout } from "@/ui-backend/pages/Layout";
 import { createBrowserRouter } from "react-router-dom";
-import { AuthRoute } from "@/backend/components/AuthRoute";
-import { Home } from "@/backend/pages/Home";
-import { Article } from "@/backend/pages/Article";
-import { Publish } from "@/backend/pages/Publish";
-import { Setting } from "@/backend/pages/Setting";
+import { AuthRoute } from "@/ui-backend/components/AuthRoute";
+import { Home } from "@/ui-backend/pages/Home";
+import { Article } from "@/ui-backend/pages/Article";
+import { Publish } from "@/ui-backend/pages/Publish";
+import { Setting } from "@/ui-backend/pages/Setting";
 
 export const router = createBrowserRouter([
   {

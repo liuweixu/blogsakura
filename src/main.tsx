@@ -1,9 +1,9 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { router } from "@/backend/router";
+import { router } from "@/ui-backend/router";
 import { RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "@/backend/store";
+import { store } from "@/ui-backend/store";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/theme-provider";
 

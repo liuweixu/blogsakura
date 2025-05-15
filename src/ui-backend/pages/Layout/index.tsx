@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { TbLogout } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { clearUserInfo, fetchUserInfo } from "@/backend/store/modules/user";
+import { clearUserInfo, fetchUserInfo } from "@/ui-backend/store/modules/user";
 
 export function Layout() {
   const dispatch = useDispatch();

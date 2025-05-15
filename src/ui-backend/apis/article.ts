@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { request } from "@/backend/utils";
+import { request } from "@/ui-backend/utils";
 
 //1. 获取频道列表
 export function getChannelAPI() {

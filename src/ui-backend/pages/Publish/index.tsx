@@ -29,9 +29,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-import RichTextEditor from "@/backend/components/Editor";
+import RichTextEditor from "@/ui-backend/components/Editor";
 import { useEffect, useState } from "react";
-import { createArticleAPI, getChannelAPI } from "@/backend/apis/article";
+import { createArticleAPI, getChannelAPI } from "@/ui-backend/apis/article";
 
 //Todo 往后准备提取到公共组件
 interface ChannelItem {
