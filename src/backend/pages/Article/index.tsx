@@ -1,3 +1,12 @@
+import { getTestAPI } from "@/backend/apis/test";
+import { useEffect, useState } from "react";
+
 export const Article = () => {
-  return <div>this is Article Page</div>;
+  const [data, setData] = useState({});
+  useEffect(() => {
+    getTestAPI().then((res) => {
+      setData(res.data["mysql"]);
+    });
+  }, []);
+  return <div>{JSON.stringify(data)}</div>;
 };

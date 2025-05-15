@@ -8,7 +8,12 @@ import type {
   IToolbarConfig,
 } from "@wangeditor/editor";
 
-function RichTextEditor() {
+interface EditorProps {
+  value?: string;
+  onChange?: (html: string) => void;
+}
+
+export default function RichTextEditor(props: EditorProps) {
   // editor 实例
   const [editor, setEditor] = useState<IDomEditor | null>(null); // TS 语法
   // const [editor, setEditor] = useState(null)                   // JS 语法
@@ -56,14 +61,17 @@ function RichTextEditor() {
           defaultConfig={editorConfig}
           value={html}
           onCreated={setEditor}
-          onChange={(editor) => setHtml(editor.getHtml())}
+          onChange={(editor: IDomEditor) => {
+            const newHtml = editor.getHtml();
+            setHtml(newHtml);
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+            props.onChange && props.onChange(newHtml);
+          }}
           mode="default"
           style={{ height: "500px", overflowY: "hidden" }}
         />
       </div>
-      <div style={{ marginTop: "15px" }}>{html}</div>
+      {/* <div style={{ marginTop: "15px" }}>{html}</div> */}
     </>
   );
 }
-
-export default RichTextEditor;

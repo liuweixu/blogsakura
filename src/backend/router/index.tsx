@@ -1,10 +1,11 @@
-import { Login } from "@backend/pages/Login";
-import { Layout } from "@backend/pages/Layout";
+import { Login } from "@/backend/pages/Login";
+import { Layout } from "@/backend/pages/Layout";
 import { createBrowserRouter } from "react-router-dom";
-import { AuthRoute } from "../components/AuthRoute";
-import { Home } from "@backend/pages/Home";
-import { Article } from "@backend/pages/Article";
-import { Publish } from "@backend/pages/Publish";
+import { AuthRoute } from "@/backend/components/AuthRoute";
+import { Home } from "@/backend/pages/Home";
+import { Article } from "@/backend/pages/Article";
+import { Publish } from "@/backend/pages/Publish";
+import { Setting } from "@/backend/pages/Setting";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ export const router = createBrowserRouter([
       {
         path: "publish",
         element: <Publish />,
+      },
+      {
+        path: "setting",
+        element: <Setting />,
       },
     ],
   },
