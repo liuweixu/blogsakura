@@ -21,3 +21,11 @@ export function addArticleAPI(formData: {
     data: formData,
   });
 }
+
+//3. 获取文章列表
+export function getArticleListAPI() {
+  return request({
+    url: "/api/backend/articlelist",
+    method: "GET",
+  });
+}

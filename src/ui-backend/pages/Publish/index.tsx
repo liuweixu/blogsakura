@@ -33,12 +33,7 @@ import RichTextEditor from "@/ui-backend/components/Editor";
 import { useEffect, useState } from "react";
 import { addArticleAPI, getChannelAPI } from "@/ui-backend/apis/article";
 import { toast } from "sonner";
-
-//Todo 往后准备提取到公共组件
-interface ChannelItem {
-  id: number;
-  name: string;
-}
+import type { ChannelItem } from "@/ui-backend/interface/Publish";
 
 export function Publish() {
   const form = useForm();
