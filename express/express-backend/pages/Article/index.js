@@ -39,4 +39,28 @@ router.get("/backend/articlelist", async (req, res) => {
   }
 });
 
+// :id对应前端的${id}
+router.delete("/backend/deletearticle/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [result] = await pool.query("delete from article where id = ?", [id]);
+    console.log(result);
+    if (result.affectedRows === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "未找到对应文章",
+      });
+    }
+    res.json({
+      success: true,
+      message: "删除成功",
+    });
+  } catch (err) {
+    res.json({
+      success: false,
+      message: err.message,
+    });
+  }
+});
+
 export default router;

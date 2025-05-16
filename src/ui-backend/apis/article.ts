@@ -29,3 +29,11 @@ export function getArticleListAPI() {
     method: "GET",
   });
 }
+
+//4. 后台删除文章
+export function delArticleAPI(id: bigint) {
+  return request({
+    url: `/api/backend/deletearticle/${id}`,
+    method: "DELETE",
+  });
+}
