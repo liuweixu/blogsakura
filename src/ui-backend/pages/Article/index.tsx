@@ -40,13 +40,18 @@ import { FcEditImage } from "react-icons/fc";
 
 import { delArticleAPI } from "@/ui-backend/apis/article";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 export function Article() {
   //必须要有接口，否则下面的invoices进行map时候，很容易出现错误提示
   const [invoices, setInvoices] = useState<ArticleItem[]>([]);
+
+  const navigator = useNavigate();
+
   useEffect(() => {
     const getArticleList = async () => {
       const res = await getArticleListAPI();
+      console.log(res.data);
       setInvoices(res.data);
     };
     getArticleList();
@@ -73,12 +78,12 @@ export function Article() {
             <TableCell>
               {
                 <div className="flex justify-center">
-                  <FcEditImage className="mr-5" />
-                  {/* <FcFullTrash
+                  <FcEditImage
+                    className="mr-5"
                     onClick={() => {
-                      delArticleAPI(invoice.id);
+                      navigator(`/publish?id=${invoice.id}`);
                     }}
-                  /> */}
+                  />
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <FcFullTrash>
@@ -98,6 +103,9 @@ export function Article() {
                           onClick={async () => {
                             console.log(invoice.id);
                             await delArticleAPI(invoice.id);
+                            // 很关键，涉及到界面的再次渲染
+                            const res = await getArticleListAPI();
+                            setInvoices(res.data);
                           }}
                         >
                           确认

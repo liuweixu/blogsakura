@@ -31,7 +31,7 @@ export function getArticleListAPI() {
 }
 
 //4. 后台删除文章
-export function delArticleAPI(id: bigint) {
+export function delArticleAPI(id: string) {
   return request({
     url: `/api/backend/deletearticle/${id}`,
     method: "DELETE",

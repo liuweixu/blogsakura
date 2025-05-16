@@ -1,6 +1,6 @@
 // 文章列表接口
 export interface ArticleItem {
-  id: bigint;
+  id: string;
   title: string;
   content: string;
   channel_id: number;

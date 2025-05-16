@@ -41,7 +41,7 @@ router.post("/backend/article", async (req, res) => {
         message: "缺少必填字段",
       });
     }
-    const id = snowflake.generate();
+    const id = snowflake.generate().toString();
     //查询channel表中是否有channel_id
     const [channelRows] = await pool.query(
       "select id from channel where name = ?",

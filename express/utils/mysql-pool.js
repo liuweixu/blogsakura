@@ -18,6 +18,14 @@ const pool = mysql.createPool({
   user: config.mysql.user,
   password: config.mysql.password,
   database: config.mysql.database,
+  //TODO 很关键，因为雪花算法在mysql转为js时，很容易丢失后两位，故而要强制转为字符串
+  typeCast: function (field, next) {
+    if (field.type === "LONGLONG") {
+      // BIGINT类型
+      return field.string(); // 强制转为字符串
+    }
+    return next();
+  },
 });
 
 export default pool;

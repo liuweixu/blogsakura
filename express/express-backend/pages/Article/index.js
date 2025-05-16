@@ -16,6 +16,7 @@ router.use(express.json());
 // 允许跨域
 router.use(cors());
 
+// 获取文章列表
 router.get("/backend/articlelist", async (req, res) => {
   try {
     // 使用左连接执行查询
@@ -26,10 +27,14 @@ router.get("/backend/articlelist", async (req, res) => {
       left join channel
       c on a.channel_id = c.id
       `);
+    const data = rows.map((row) => ({
+      ...row,
+      id: row.id.toString(), // 将BIGINT转为字符串
+    }));
     res.json({
       success: true,
       message: "查询成功",
-      data: rows,
+      data: data,
     });
   } catch (err) {
     res.json({
