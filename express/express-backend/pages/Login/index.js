@@ -7,16 +7,16 @@ import crypto from "crypto";
 // 创建路由对象
 const router = express.Router();
 // 生成32位随机字符串
-const randomString = crypto.randomBytes(32).toString("hex");
+// const randomString = crypto.randomBytes(32).toString("hex");
 // 定义密钥
-const SECRET_KEY = randomString;
+const SECRET_KEY = "3a7f9b2e4c1d8e5f0a6c3b9e8d2f1e7";
 
 // 允许跨域
 router.use(cors());
 // 必须添加中间件解析请求体
 router.use(express.json());
 //查所有用户数据
-router.get("/users", async (req, res) => {
+router.get("/backend/users", async (req, res) => {
   try {
     const [rows] = await pool.query("select * from user");
     res.json(rows);
@@ -27,7 +27,7 @@ router.get("/users", async (req, res) => {
 });
 
 //查数据，查看手机号对应的code是否正确，并返回token
-router.post("/users", async (req, res) => {
+router.post("/backend/users", async (req, res) => {
   const formData = req.body;
   const phone = formData["mobile"];
   const code = formData["code"];
@@ -57,4 +57,5 @@ router.post("/users", async (req, res) => {
   }
 });
 
+// 导出路由对象
 export default router;

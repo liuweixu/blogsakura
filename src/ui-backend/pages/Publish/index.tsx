@@ -31,7 +31,8 @@ import {
 
 import RichTextEditor from "@/ui-backend/components/Editor";
 import { useEffect, useState } from "react";
-import { getChannelAPI } from "@/ui-backend/apis/article";
+import { addArticleAPI, getChannelAPI } from "@/ui-backend/apis/article";
+import { toast } from "sonner";
 
 //Todo 往后准备提取到公共组件
 interface ChannelItem {
@@ -45,7 +46,7 @@ export function Publish() {
   useEffect(() => {
     const getChannelList = async () => {
       const res = await getChannelAPI();
-      setChannelList(res.data.channels);
+      setChannelList(res.data);
     };
     getChannelList();
   }, []);
@@ -66,20 +67,33 @@ export function Publish() {
       </div>
       <div className="w-2/3 space-y-6">
         <form
-          onSubmit={form.handleSubmit((formValues: FieldValues) => {
+          onSubmit={form.handleSubmit(async (formValues: FieldValues) => {
             const { title, richtext, channel } = formValues;
-            console.log(typeof title, typeof richtext, typeof channel);
-            //按照接口文档填写
-            // const pushData = {
-            //   title: title,
-            //   content: richtext,
-            //   cover: {
-            //     type: "0",
-            //     images: [],
-            //   },
-            //   channel_id: channel,
-            // };
+            const pushData = {
+              title: title,
+              content: richtext,
+              channel: channel,
+            };
             //调用接口提交
+            const res = await addArticleAPI(pushData);
+            console.log(res);
+            if (res?.data.success) {
+              toast.success("登录成功", {
+                description: "插入文章成功",
+                action: {
+                  label: "关闭",
+                  onClick: () => console.log("Undo"),
+                },
+              });
+            } else {
+              toast.error("登录失败", {
+                description: "插入文章失败",
+                action: {
+                  label: "关闭",
+                  onClick: () => console.log("Undo"),
+                },
+              });
+            }
           })}
         >
           <FormItem>

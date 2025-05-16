@@ -13,22 +13,11 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { TbLogout } from "react-icons/tb";
-import { useDispatch, useSelector } from "react-redux";
-// import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { clearUserInfo } from "@/ui-backend/store/modules/user";
 
 export function Layout() {
   const dispatch = useDispatch();
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const name = useSelector((state) => state.user.userInfo.name);
-  //异步从接口获取用户信息 一次渲染即可
-
-  // useEffect(() => {
-  //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  //   // @ts-ignore
-  //   dispatch(fetchUserInfo());
-  // }, [dispatch]);
 
   //退出登录
   const navigator = useNavigate();
@@ -43,7 +32,6 @@ export function Layout() {
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <div className="w-full flex justify-end gap-2 items-center">
-            <span>{name}</span>
             <span>
               <Popover>
                 <PopoverTrigger asChild>

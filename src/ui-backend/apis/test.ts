@@ -7,9 +7,9 @@ export const getTestAPI = () => {
 };
 
 export const userTestAPI = () => {
-  return axios.get("/api/users");
+  return axios.get("/api/backend/users");
 };
 
 export const userTestPostAPI = (formData: FieldValues) => {
-  return axios.post("/api/users", formData);
+  return axios.post("/api/backend/users", formData);
 };

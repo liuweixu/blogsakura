@@ -13,7 +13,6 @@ const userStore = createSlice({
   // 数据状态
   initialState: {
     token: getToken() || "",
-    userInfo: {},
   },
   // 同步修改方法
   reducers: {
@@ -22,12 +21,9 @@ const userStore = createSlice({
       // 本地存一份
       _setToken(action.payload); //防止与方法同名
     },
-    setUserInfo(state, action) {
-      state.userInfo = action.payload;
-    },
     clearUserInfo(state) {
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      (state.token = ""), (state.userInfo = {}), clearToken();
+      (state.token = ""), clearToken();
     },
   },
 });
@@ -40,12 +36,6 @@ const fetchLogin = (loginForm: FieldValues) => {
   };
 };
 
-// const fetchUserInfo = () => {
-//   return async (dispatch: AppDispatch) => {
-//     const res = await getProfileAPI();
-//     dispatch(setUserInfo(res.data));
-//   };
-// };
 const { setToken, clearUserInfo } = userStore.actions;
 
 const userReducer = userStore.reducer;
