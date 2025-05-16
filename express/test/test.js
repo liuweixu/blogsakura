@@ -10,7 +10,7 @@ const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const configPath = path.join(__dirname, "../common/mysql.json");
+const configPath = path.join(__dirname, "../config/mysql.json");
 console.log("Config path:", configPath); // 调试路径
 const rawData = fs.readFileSync(configPath, "utf-8");
 const config = JSON.parse(rawData);

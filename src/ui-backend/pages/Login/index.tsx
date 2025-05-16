@@ -25,7 +25,6 @@ export function Login() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(async (fromValue: FieldValues) => {
-          console.log(fromValue);
           //触发异步
           await dispatch(fetchLogin(fromValue) as unknown as AnyAction);
           navigate("/"); //跳转至首页

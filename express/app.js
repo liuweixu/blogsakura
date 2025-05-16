@@ -1,10 +1,12 @@
 import express from "express";
 import testRouter from "./test/test.js";
+import loginRouter from "./express-backend/pages/Login/index.js";
 
 const app = express();
 
 // 使用测试路由
 app.use(testRouter);
+app.use(loginRouter);
 
 // 或者如果您想要添加前缀
 // app.use("/api", testRouter);
