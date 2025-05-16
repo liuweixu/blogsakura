@@ -37,3 +37,11 @@ export function delArticleAPI(id: string) {
     method: "DELETE",
   });
 }
+
+//5. 获取id的文章
+export function getArticleById(id: string) {
+  return request({
+    url: `/api/backend/article/${id}`,
+    method: "GET",
+  });
+}

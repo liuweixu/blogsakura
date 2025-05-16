@@ -1,6 +1,6 @@
 import "@wangeditor/editor/dist/css/style.css"; // 引入 css
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Editor, Toolbar } from "@wangeditor/editor-for-react";
 import type {
   IDomEditor,
@@ -15,18 +15,18 @@ interface EditorProps {
 
 export default function RichTextEditor(props: EditorProps) {
   // editor 实例
-  const [editor, setEditor] = useState<IDomEditor | null>(null); // TS 语法
-  // const [editor, setEditor] = useState(null)                   // JS 语法
-
+  const [editor, setEditor] = useState<IDomEditor | null>(null);
   // 编辑器内容
-  const [html, setHtml] = useState("<p>hello</p>");
+  const [html, setHtml] = useState(props.value || "");
 
-  // 模拟 ajax 请求，异步设置 html
+  // 监听props.value变化，实现回填
   useEffect(() => {
-    setTimeout(() => {
-      setHtml("<p>hello world</p>");
-    }, 1500);
-  }, []);
+    if (editor && props.value && props.value !== html) {
+      editor.setHtml(props.value);
+      setHtml(props.value);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.value]);
 
   // 工具栏配置
   const toolbarConfig: Partial<IToolbarConfig> = {}; // TS 语法
@@ -71,7 +71,6 @@ export default function RichTextEditor(props: EditorProps) {
           style={{ height: "500px", overflowY: "hidden" }}
         />
       </div>
-      {/* <div style={{ marginTop: "15px" }}>{html}</div> */}
     </>
   );
 }

@@ -31,12 +31,23 @@ import {
 
 import RichTextEditor from "@/ui-backend/components/Editor";
 import { useEffect, useState } from "react";
-import { addArticleAPI, getChannelAPI } from "@/ui-backend/apis/article";
+import {
+  addArticleAPI,
+  getArticleById,
+  getChannelAPI,
+} from "@/ui-backend/apis/article";
 import { toast } from "sonner";
 import type { ChannelItem } from "@/ui-backend/interface/Publish";
+import { useSearchParams } from "react-router-dom";
 
 export function Publish() {
-  const form = useForm();
+  const form = useForm({
+    defaultValues: {
+      title: "",
+      richtext: "",
+      channel: "", // 添加初始空值
+    },
+  });
   const [channelList, setChannelList] = useState<ChannelItem[]>([]);
   useEffect(() => {
     const getChannelList = async () => {
@@ -45,6 +56,43 @@ export function Publish() {
     };
     getChannelList();
   }, []);
+
+  //TODO 查询id是否存在-》即是否需要编辑文章
+  //回填数据
+  const [searchParams] = useSearchParams();
+  const articleId = searchParams.get("id");
+  //获取实例
+  useEffect(() => {
+    /** TODO 关键修改点：
+      1. 添加了channelList加载完成的检查
+      2. 确保channel_name在channelList中存在
+      3. 添加了channelList作为依赖项
+      4. 添加了数据有效性检查
+      这样修改后，当刷新页面时，会等待channelList加载完成后再尝试回填数据。
+    **/
+    async function getArticleDetail() {
+      if (articleId && channelList.length > 0) {
+        // 确保channelList已加载
+        const res = await getArticleById(articleId.toString());
+        if (res.data) {
+          form.reset({
+            title: res.data.title,
+            richtext: res.data.content,
+            channel: res.data.channel_name,
+          });
+          // 确保channel_name在channelList中存在
+          const channelExists = channelList.some(
+            (c) => c.name === res.data.channel_name
+          );
+          if (channelExists) {
+            form.setValue("channel", res.data.channel_name);
+          }
+          form.setValue("richtext", res.data.content);
+        }
+      }
+    }
+    getArticleDetail();
+  }, [articleId, form, channelList]); // 添加channelList依赖
   return (
     <Form {...form}>
       <div className="flex">
@@ -109,7 +157,7 @@ export function Publish() {
                 onValueChange={(value) => {
                   form.setValue("channel", value);
                 }}
-                defaultValue={form.watch("channel")}
+                value={form.watch("channel")}
               >
                 <SelectTrigger id="channel" className="w-1/2   relative z-50">
                   <SelectValue placeholder="Select" />
@@ -128,6 +176,7 @@ export function Publish() {
             <FormControl>
               <RichTextEditor
                 onChange={(value) => form.setValue("richtext", value)}
+                value={form.watch("richtext")} //TODO 这里触发回填
               />
             </FormControl>
             <FormDescription></FormDescription>
