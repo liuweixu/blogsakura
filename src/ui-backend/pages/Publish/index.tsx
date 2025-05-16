@@ -33,6 +33,7 @@ import RichTextEditor from "@/ui-backend/components/Editor";
 import { useEffect, useState } from "react";
 import {
   addArticleAPI,
+  editArticleAPI,
   getArticleById,
   getChannelAPI,
 } from "@/ui-backend/apis/article";
@@ -118,8 +119,9 @@ export function Publish() {
               channel: channel,
             };
             //调用接口提交
-            const res = await addArticleAPI(pushData);
-            console.log(res);
+            const res = articleId
+              ? await editArticleAPI(articleId, pushData)
+              : await addArticleAPI(pushData);
             if (res?.data.success) {
               toast.success("登录成功", {
                 description: "插入文章成功",

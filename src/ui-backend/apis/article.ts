@@ -41,7 +41,23 @@ export function delArticleAPI(id: string) {
 //5. 获取id的文章
 export function getArticleById(id: string) {
   return request({
-    url: `/api/backend/article/${id}`,
+    url: `/api/backend/articleget/${id}`,
     method: "GET",
+  });
+}
+
+//6. 对id的文章删改（类似添加文章逻辑）
+export function editArticleAPI(
+  id: string,
+  formData: {
+    title: string;
+    content: string;
+    channel: string;
+  }
+) {
+  return request({
+    url: `/api/backend/articleput/${id}`, // 修改为/articleput/
+    method: "PUT",
+    data: formData,
   });
 }
