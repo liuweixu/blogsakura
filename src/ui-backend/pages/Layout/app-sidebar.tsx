@@ -42,6 +42,11 @@ const data = {
           url: "/setting",
           isActive: false,
         },
+        {
+          title: "测试",
+          url: "/test",
+          isActive: false,
+        },
       ],
     },
   ],

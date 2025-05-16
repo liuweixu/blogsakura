@@ -6,6 +6,7 @@ import { Home } from "@/ui-backend/pages/Home";
 import { Article } from "@/ui-backend/pages/Article";
 import { Publish } from "@/ui-backend/pages/Publish";
 import { Setting } from "@/ui-backend/pages/Setting";
+import { Test } from "@/ui-backend/pages/Test";
 
 export const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
       {
         path: "setting",
         element: <Setting />,
+      },
+      {
+        path: "test",
+        element: <Test />,
       },
     ],
   },

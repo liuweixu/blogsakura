@@ -9,16 +9,3 @@ export function getChannelAPI() {
     method: "GET",
   });
 }
-
-export function createArticleAPI(data: {
-  title: any;
-  content: any;
-  cover: { type: string; images: never[] };
-  channel_id: any;
-}) {
-  return request({
-    url: "/mp/articles",
-    method: "POST",
-    data,
-  });
-}

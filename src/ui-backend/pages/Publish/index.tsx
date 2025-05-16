@@ -31,7 +31,7 @@ import {
 
 import RichTextEditor from "@/ui-backend/components/Editor";
 import { useEffect, useState } from "react";
-import { createArticleAPI, getChannelAPI } from "@/ui-backend/apis/article";
+import { getChannelAPI } from "@/ui-backend/apis/article";
 
 //Todo 往后准备提取到公共组件
 interface ChannelItem {
@@ -70,17 +70,16 @@ export function Publish() {
             const { title, richtext, channel } = formValues;
             console.log(typeof title, typeof richtext, typeof channel);
             //按照接口文档填写
-            const pushData = {
-              title: title,
-              content: richtext,
-              cover: {
-                type: "0",
-                images: [],
-              },
-              channel_id: channel,
-            };
+            // const pushData = {
+            //   title: title,
+            //   content: richtext,
+            //   cover: {
+            //     type: "0",
+            //     images: [],
+            //   },
+            //   channel_id: channel,
+            // };
             //调用接口提交
-            createArticleAPI(pushData);
           })}
         >
           <FormItem>

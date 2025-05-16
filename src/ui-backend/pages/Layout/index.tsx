@@ -14,8 +14,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { TbLogout } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { clearUserInfo, fetchUserInfo } from "@/ui-backend/store/modules/user";
+// import { useEffect } from "react";
+import { clearUserInfo } from "@/ui-backend/store/modules/user";
 
 export function Layout() {
   const dispatch = useDispatch();
@@ -24,11 +24,11 @@ export function Layout() {
   const name = useSelector((state) => state.user.userInfo.name);
   //异步从接口获取用户信息 一次渲染即可
 
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    dispatch(fetchUserInfo());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //   // @ts-ignore
+  //   dispatch(fetchUserInfo());
+  // }, [dispatch]);
 
   //退出登录
   const navigator = useNavigate();

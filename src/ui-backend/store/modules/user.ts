@@ -6,7 +6,7 @@ import {
   setToken as _setToken,
   removeToken as clearToken,
 } from "@/ui-backend/utils";
-import { getProfileAPI, loginAPI } from "@/ui-backend/apis/user";
+import { loginAPI } from "@/ui-backend/apis/user";
 
 const userStore = createSlice({
   name: "user",
@@ -40,16 +40,16 @@ const fetchLogin = (loginForm: FieldValues) => {
   };
 };
 
-const fetchUserInfo = () => {
-  return async (dispatch: AppDispatch) => {
-    const res = await getProfileAPI();
-    dispatch(setUserInfo(res.data));
-  };
-};
-const { setToken, setUserInfo, clearUserInfo } = userStore.actions;
+// const fetchUserInfo = () => {
+//   return async (dispatch: AppDispatch) => {
+//     const res = await getProfileAPI();
+//     dispatch(setUserInfo(res.data));
+//   };
+// };
+const { setToken, clearUserInfo } = userStore.actions;
 
 const userReducer = userStore.reducer;
 
-export { fetchLogin, setToken, fetchUserInfo, clearUserInfo };
+export { fetchLogin, setToken, clearUserInfo };
 
 export default userReducer;

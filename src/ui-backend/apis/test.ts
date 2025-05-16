@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { FieldValues } from "react-hook-form";
 
 export const getTestAPI = () => {
   // 使用相对路径，让Vite代理处理请求
@@ -9,7 +10,6 @@ export const userTestAPI = () => {
   return axios.get("/api/users");
 };
 
-export const userTestPostAPI = (formData: { mobile: string; code: string }) => {
-  console.log(formData);
+export const userTestPostAPI = (formData: FieldValues) => {
   return axios.post("/api/users", formData);
 };
