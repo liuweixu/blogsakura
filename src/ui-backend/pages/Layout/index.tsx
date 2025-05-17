@@ -23,7 +23,7 @@ export function Layout() {
   const navigator = useNavigate();
   const LoginOut = () => {
     dispatch(clearUserInfo());
-    navigator("/login");
+    navigator("/backend/login");
   };
   return (
     <SidebarProvider>

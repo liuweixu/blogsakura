@@ -148,7 +148,7 @@ export function Article() {
                       <FcEditImage
                         className="mr-5"
                         onClick={() => {
-                          navigator(`/publish?id=${invoice.id}`);
+                          navigator(`/backend/publish?id=${invoice.id}`);
                         }}
                       />
                       {renderAlertDialog(invoice.id)}

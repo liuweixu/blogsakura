@@ -15,36 +15,35 @@ import {
 import { useLocation, useNavigate } from "react-router-dom";
 import classNames from "classnames";
 
-// This is sample data.
 const data = {
   navMain: [
     {
       title: "个人博客后台管理系统",
-      url: "/",
+      url: "/backend/",
       items: [
         {
           title: "首页",
-          url: "/home",
+          url: "/backend/home",
           isActive: false,
         },
         {
           title: "文章管理",
-          url: "/article",
+          url: "/backend/article",
           isActive: true,
         },
         {
           title: "发表文章",
-          url: "/publish",
+          url: "/backend/publish",
           isActive: false,
         },
         {
           title: "设置",
-          url: "/setting",
+          url: "/backend/setting",
           isActive: false,
         },
         {
           title: "测试",
-          url: "/test",
+          url: "/backend/test",
           isActive: false,
         },
       ],

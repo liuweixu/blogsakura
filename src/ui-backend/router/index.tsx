@@ -10,7 +10,7 @@ import { Test } from "@/ui-backend/pages/Test";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/backend/",
     element: (
       <AuthRoute>
         <Layout />
@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: "/login",
+    path: "/backend/login",
     element: <Login />,
   },
 ]);

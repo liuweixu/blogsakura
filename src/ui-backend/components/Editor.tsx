@@ -68,7 +68,7 @@ export default function RichTextEditor(props: EditorProps) {
             props.onChange && props.onChange(newHtml);
           }}
           mode="default"
-          style={{ height: "500px", overflowY: "hidden" }}
+          style={{ height: "450px", overflowY: "hidden" }}
         />
       </div>
     </>
