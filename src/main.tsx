@@ -1,9 +1,10 @@
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import { router } from "@/ui-backend/router";
 import { RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "@/ui-backend/store";
+//在别的文件夹合并store和router
+import { store } from "./storeall";
+import { router } from "./routerall";
 import { Toaster } from "sonner";
 
 createRoot(document.getElementById("root")!).render(
