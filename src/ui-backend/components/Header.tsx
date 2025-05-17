@@ -40,10 +40,19 @@ export function Header({ href, title, pagename }: BreadCrumbItems) {
                   此操作不可撤销。
                 </p>
                 <div className="flex justify-end gap-2 mt-2">
-                  <Button variant="outline" size="sm">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    // TODO 点击取消按钮，触发键盘事件，关闭弹窗
+                    onClick={() =>
+                      document.dispatchEvent(
+                        new KeyboardEvent("keydown", { key: "Escape" })
+                      )
+                    }
+                  >
                     取消
                   </Button>
-                  <Button variant="outline" size="sm" onClick={LoginOut}>
+                  <Button size="sm" onClick={LoginOut}>
                     退出
                   </Button>
                 </div>

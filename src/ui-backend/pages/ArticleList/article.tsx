@@ -36,7 +36,7 @@ import { Card } from "@/components/ui/card";
 import { usePagination } from "@/ui-backend/components/Pagination";
 import { Header } from "@/ui-backend/components/Header";
 
-export function ArticleList() {
+export function Article() {
   //必须要有接口，否则下面的invoices进行map时候，很容易出现错误提示
   const [invoices, setInvoices] = useState<ArticleItem[]>([]);
   //导航

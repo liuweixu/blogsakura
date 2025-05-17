@@ -27,8 +27,8 @@ const data = {
           isActive: false,
         },
         {
-          title: "文章管理",
-          url: "/backend/article",
+          title: "文章列表",
+          url: "/backend/articlelist",
           isActive: true,
         },
         {

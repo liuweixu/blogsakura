@@ -9,6 +9,6 @@ export function AuthRoute({ children }: { children: React.ReactNode }) {
   if (token) {
     return <>{children}</>;
   } else {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/backend/login" replace />;
   }
 }
