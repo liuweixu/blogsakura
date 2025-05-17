@@ -104,7 +104,11 @@ export function Publish() {
             </BreadcrumbItem>
             <BreadcrumbSeparator className="hidden md:block" />
             <BreadcrumbItem>
-              <BreadcrumbPage>发布文章</BreadcrumbPage>
+              {articleId ? (
+                <BreadcrumbPage>修改文章</BreadcrumbPage>
+              ) : (
+                <BreadcrumbPage>发布文章</BreadcrumbPage>
+              )}
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

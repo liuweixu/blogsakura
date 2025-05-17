@@ -56,7 +56,7 @@ export function editArticleAPI(
   }
 ) {
   return request({
-    url: `/api/backend/articleput/${id}`, // 修改为/articleput/
+    url: `/api/backend/articleput/${id}`,
     method: "PUT",
     data: formData,
   });
