@@ -62,7 +62,7 @@ export function Article() {
   //计算当前页数
   const [currentPage, setCurrentPage] = useState(1);
   // 预计每页显示的文章个数
-  const itemPerPage = 5;
+  const itemPerPage = 10;
 
   useEffect(() => {
     const getArticleList = async () => {
