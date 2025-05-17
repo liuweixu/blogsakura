@@ -12,14 +12,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 
 import {
   Select,
@@ -40,6 +32,8 @@ import {
 import { toast } from "sonner";
 import type { ChannelItem } from "@/ui-backend/interface/Publish";
 import { useSearchParams } from "react-router-dom";
+
+import { Header } from "@/ui-backend/components/Header";
 
 export function PublishArticle() {
   const form = useForm({
@@ -94,25 +88,10 @@ export function PublishArticle() {
     }
     getArticleDetail();
   }, [articleId, form, channelList]); // 添加channelList依赖
+
   return (
     <Form {...form}>
-      <div className="flex">
-        <Breadcrumb className="flex items-center whitespace-nowrap overflow-hidden">
-          <BreadcrumbList className="flex flex-nowrap">
-            <BreadcrumbItem className="hidden md:block">
-              <BreadcrumbLink href="/home">首页</BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator className="hidden md:block" />
-            <BreadcrumbItem>
-              {articleId ? (
-                <BreadcrumbPage>修改文章</BreadcrumbPage>
-              ) : (
-                <BreadcrumbPage>发布文章</BreadcrumbPage>
-              )}
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
-      </div>
+      <Header href="/backend/home" title="首页" pagename="发布文章"></Header>
       <div className="w-2/3 space-y-6">
         <form
           onSubmit={form.handleSubmit(async (formValues: FieldValues) => {
