@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { store } from "./storeall";
 import { router } from "./routerall";
 import { Toaster } from "sonner";
+import "@ant-design/v5-patch-for-react-19";
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
