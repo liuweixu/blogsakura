@@ -7,7 +7,6 @@
 //   transformOrigin: "center bottom", // 用origin-[center_bottom]代替
 //   backgroundPosition: "0 bottom", // 用bg-left-bottom代替
 */
-import "@fortawesome/fontawesome-free/css/all.min.css";
 export const Banner = () => {
   return (
     <div className="relative overflow-hidden h-auto before:content-[''] before:absolute before:inset-0 before:z-[3] before:bg-fixed before:bg-[url('statics/images/grid.png')]">
@@ -91,7 +90,7 @@ export const Banner = () => {
             }}
           >
             <p className="m-0 font-bold">
-              {/**不清楚作用是什么 */}
+              {/**添加左引号和右引号的图标 但是这部分有问题*/}
               <i className="iconfont icon-quote-left" />
               <span>
                 {"You got to put the past behind you before you can move on."}
