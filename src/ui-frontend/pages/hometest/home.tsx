@@ -1,4 +1,4 @@
-import { Banner } from "./components/banner";
+import { Banner } from "./components/bannertest";
 function App() {
   return (
     <div className="w-full">
