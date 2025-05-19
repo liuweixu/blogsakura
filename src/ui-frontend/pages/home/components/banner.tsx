@@ -7,6 +7,7 @@
 //   transformOrigin: "center bottom", // 用origin-[center_bottom]代替
 //   backgroundPosition: "0 bottom", // 用bg-left-bottom代替
 */
+import "@fortawesome/fontawesome-free/css/all.min.css";
 export const Banner = () => {
   return (
     <div className="relative overflow-hidden h-auto before:content-[''] before:absolute before:inset-0 before:z-[3] before:bg-fixed before:bg-[url('statics/images/grid.png')]">
@@ -55,9 +56,8 @@ export const Banner = () => {
         }}
       >
         {/**Focusinfo */}
-        <div
-          className="relative max-w-[800px] px-[10px] top-[49.3%] left-1/2 text-center z-[99]"
-          style={{
+        {/**TODO 
+         * style={{
             transform: "translate(-50%, -50%)",
             WebkitTransform: "translate(-50%, -50%)",
             WebkitTransition: ".4s ease all",
@@ -65,18 +65,58 @@ export const Banner = () => {
             OTransition: ".4s ease all",
             transition: ".4s ease all",
           }}
-        >
+         //transform -translate-x-1/2 -translate-y-1/2 transition-all duration-400 ease-in-ou
+         */}
+        <div className="relative max-w-1/2 px-[10px] top-[49.3%] left-1/2 text-center z-[99] transform -translate-x-1/2 -translate-y-1/2 transition-all duration-400 ease-in-out">
           <h1 className="glitch" data-text="您好">
             您好
           </h1>
-          <div className="relative w-[63%] m-auto text-[16px] text-[#eaeadf] bg-[rgba(0,0,0,0.5)] p-[15px] mt-[22px] leading-8 rounded-[10px] whitespace-nowrap box-content">
+          {/**对您好下面的黑色方框（带有箭头）绘制 */}
+          <div
+            className="before:content-[''] before:absolute before:top-[-30px] before:left-1/2 before:ml-[-15px] before:border-[15px] before:border-solid before:border-t-transparent before:border-r-transparent before:border-black/50 before:border-l-transparent"
+            style={{
+              position: "relative",
+              width: "63%",
+              margin: "auto",
+              fontSize: "16px",
+              color: "#eaeadf",
+              backgroundColor: "rgba(0,0,0,0.5)",
+              padding: "15px",
+              marginTop: "22px",
+              letterSpacing: "0",
+              lineHeight: "30px",
+              borderRadius: "10px",
+              boxSizing: "initial",
+              whiteSpace: "nowrap",
+            }}
+          >
             <p className="m-0 font-bold">
+              {/**不清楚作用是什么 */}
               <i className="iconfont icon-quote-left" />
               <span>
                 {"You got to put the past behind you before you can move on."}
               </span>
               <i className="iconfont icon-quoteright" />
             </p>
+            {/**这部分待定 */}
+            <div className="h-[35px] mb-[-10px] list-none inline-block">
+              <li className="relative h-[35px] float-left m-[0_6px] cursor-[url('statics/images/ayuda.cur')_auto]">
+                <img
+                  style={{
+                    MozTransform: "scaleX(-1)",
+                    WebkitTransform: "scaleX(-1)",
+                    OTransform: "scaleX(-1)",
+                    transform: "scaleX(-1)",
+                    filter: "FlipH",
+                  }}
+                  src="url('statics/images/next-b.svg')"
+                  alt=""
+                />
+              </li>
+              <li>
+                <img src="url('statics/images/next-b.svg')" alt="" />
+              </li>
+            </div>
           </div>
         </div>
       </div>
