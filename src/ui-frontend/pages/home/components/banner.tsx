@@ -65,8 +65,13 @@ export const Banner = () => {
             transition: ".4s ease all",
           }}
          //transform -translate-x-1/2 -translate-y-1/2 transition-all duration-400 ease-in-ou
+         //上面的transform操作是为了让文字居中显示，原来的文字虽然居中，但是黑框过大，所以需要max-w-1/2来限制，但是这个结果让文字和黑框在左边，所以需要left-1/2，此时已经到右边，故而继续用transform
+           @media (max-width: 768px) {
+    display: none;
+  }
+    注意这个用法，让浏览器在768px以下时隐藏这个元素
          */}
-        <div className="relative max-w-1/2 px-[10px] top-[49.3%] left-1/2 text-center z-[99] transform -translate-x-1/2 -translate-y-1/2 transition-all duration-400 ease-in-out">
+        <div className="relative max-w-[800px] px-[0_10px] top-[49.3%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-[99] transition-all duration-400 ease-in-out md:block hidden">
           <h1 className="glitch" data-text="您好">
             您好
           </h1>
@@ -89,10 +94,20 @@ export const Banner = () => {
               whiteSpace: "nowrap",
             }}
           >
-            <p className="m-0 font-bold">
+            <p
+              className="m-0"
+              style={{
+                fontFamily: "Ubuntu, sans-serif",
+                fontWeight: "700",
+              }}
+            >
               {/**添加左引号和右引号的图标 但是这部分有问题*/}
               <i className="iconfont icon-quote-left" />
-              <span>
+              <span
+                style={{
+                  margin: "0 10px",
+                }}
+              >
                 {"You got to put the past behind you before you can move on."}
               </span>
               <i className="iconfont icon-quoteright" />
