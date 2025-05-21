@@ -1,7 +1,7 @@
 import type { ArticleContent } from "@/ui-backend/interface/Article";
 import { getArticleById } from "@/ui-frontend/apis/article";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const location = useLocation();
@@ -24,20 +24,34 @@ function App() {
   return (
     //ArticleWrapper
     <div>
-      <div className="pt-[75px] bg-[#fff] max-md:pt-[50px]" />
+      <div className="pt-[75px] bg-white" />
       {/**ArticleTop */}
-      <div className="relative top-0 left-0 w-full overflow-hidden">
-        <div className="bg-no-repeat bg-cover bg-[center_center] w-full h-[400px] bg-origin-border">
+      <div className="relative overflow-hidden">
+        <div className="bg-no-repeat bg-cover bg-center h-100 bg-origin-border">
           <img
-            className="w-full h-full object-cover pointer-events-none"
-            src={"/statics/images/list_08.png"}
+            className="w-full h-full object-cover"
+            src={"/statics/images/list_14.png"}
             alt=""
           />
         </div>
+        <div className="max-w-[900px] p-[0_10px] m-auto text-left top-auto bottom-5 absolute left-0 right-0 text-white text-shadow-[2px_2px_10px_#000] z-[1]">
+          <h1 className="text-4xl font-bold">测试</h1>
+          {data && (
+            <p className="text-[14px] p-[18px_0_0] leading-[39px]">
+              <span>
+                <img
+                  className="w-[35px] h-[35px] rounded-full float-left mr-3"
+                  src="/statics/images/list_01.png"
+                ></img>
+              </span>
+              <span>{data.channel_name}</span>
+              <span className="mx-1.5">·</span>
+            </p>
+          )}
+        </div>
       </div>
-      {data?.content}
-      {data?.title}
-      {data?.channel_name}
+      {/**MainWrapper */}
+      <div></div>
     </div>
   );
 }
