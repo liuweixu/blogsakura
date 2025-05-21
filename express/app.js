@@ -4,10 +4,12 @@ import loginRouterBackend from "./express-backend/pages/Login/index.js";
 import publishRouterBackend from "./express-backend/pages/Publish/index.js";
 import articleRouterBackend from "./express-backend/pages/Article/index.js";
 import homeRouter from "./express-frontend/pages/Home/index.js";
+import articleRouter from "./express-frontend/pages/Article/index.js";
 
 const app = express();
 
 // 使用测试路由
+app.use(articleRouter);
 app.use(testRouterBackend);
 app.use(loginRouterBackend);
 app.use(publishRouterBackend);

@@ -1,6 +1,6 @@
 import { Banner } from "./components/banner";
 import { Feature } from "./components/feature";
-import { ListWrapper } from "./components/list";
+import { ListWrapper } from "./components/list_articles";
 function App() {
   // useEffect(() => {
   //   // 动态创建script标签

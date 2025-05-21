@@ -30,7 +30,7 @@ export function Feature() {
               {/**这部分先瞎改 */}
               <Link to={"/backend/articlelist"}>
                 <div className="img-box">
-                  <img src="statics/images/list_02.png" alt="" />
+                  <img src="/statics/images/list_02.png" alt="" />
                 </div>
                 <div className="info">
                   <h3 className="ellipsis">{invoice.title}</h3>

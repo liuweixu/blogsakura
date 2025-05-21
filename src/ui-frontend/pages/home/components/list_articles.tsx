@@ -9,7 +9,6 @@ export function ListWrapper() {
     const getArticleList = async () => {
       try {
         const res = await getArticleHomeAPI();
-        console.log(res.data.data); // 打印响应数据，以便检查是否正确获取了文章列表
         // 确保data是数组，否则使用空数组
         setData(res.data.data); // 注意这个，后台上因为添加拦截中，加上res.data，而这个是没加上，所以要多一个data
       } catch (error) {
@@ -42,7 +41,7 @@ export function ListWrapper() {
                   >
                     <img
                       className="w-full h-full object-cover transition-all duration-600 filter-none pointer-none hover:scale-110"
-                      src={"statics/images/list_01.png"}
+                      src={"/statics/images/list_01.png"}
                       alt=""
                     />
                   </Link>
@@ -58,7 +57,10 @@ export function ListWrapper() {
                     <i className="iconfont icon-time mr-[5px] text-[#989898] text-[14px]" />
                     发布于
                   </div>
-                  <Link to={"/backend/articlelist"} className="block my-[18px]">
+                  <Link
+                    to={"/article/" + invoice.id}
+                    className="block my-[18px]"
+                  >
                     <h3 className="text-ellipsis line-clamp-2 overflow-hidden break-words text-[16px] font-bold text-[#504e4e] transition-colors duration-200 ease-out hover:text-[#fe9600]">
                       {index}
                     </h3>
@@ -85,7 +87,7 @@ export function ListWrapper() {
                       {invoice.id}
                     </p>
                     <div>
-                      <Link to={"/backend/articlelist"}>
+                      <Link to={"/article/" + invoice.id}>
                         <i className="iconfont icon-icon_caidan text-[#666] hover:text-[#fe9600]" />
                       </Link>
                     </div>

@@ -70,14 +70,14 @@ export const Banner = () => {
                         transform: "scaleX(-1)",
                         filter: "FlipH",
                       }}
-                      src="statics/images/next-b.svg"
+                      src="/statics/images/next-b.svg"
                       alt=""
                     />
                   </li>
                   <li className="relative h-[35px] float-left m-[0_6px] cursor-[url('statics/images/ayuda.cur')_auto]">
                     <img
                       className="h-[35px] w-[35px] p-[6px] bg-[0_0]"
-                      src="statics/images/next-b.svg"
+                      src="/statics/images/next-b.svg"
                       alt=""
                     />
                   </li>
