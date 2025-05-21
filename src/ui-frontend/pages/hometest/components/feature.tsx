@@ -18,11 +18,11 @@ export function Feature() {
     };
     getArticleList();
   }, []);
-
+  const features = data.slice(0, 3);
   function featureList() {
     return (
       <Row gutter={16} className="top-feature-row">
-        {data.map((invoice) => (
+        {features.map((invoice) => (
           <Col
             key={invoice.id}
             xs={24}

@@ -26,7 +26,6 @@ export function ListWrapper() {
     ];
     return (
       <BlogList>
-        {" "}
         {data.map((invoice, index) => {
           return (
             <div className={Class[index % Class.length]} key={invoice.id}>

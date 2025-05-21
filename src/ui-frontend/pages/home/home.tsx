@@ -1,5 +1,6 @@
 import { Banner } from "./components/banner";
 import { Feature } from "./components/feature";
+import { ListWrapper } from "./components/list";
 function App() {
   return (
     <div className="w-full">
@@ -13,6 +14,7 @@ function App() {
         }}
       >
         <Feature />
+        <ListWrapper />
       </div>
     </div>
   );
