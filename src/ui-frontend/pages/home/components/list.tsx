@@ -38,28 +38,23 @@ export function ListWrapper() {
                 >
                   <Link
                     to={"/backend/articlelist"}
-                    className={`h-[300px] relative block bg-no-repeat bg-cover overflow-hidden  ${
-                      index % 2 === 0
-                        ? "rounded-[0_10px_10px_0]"
-                        : "rounded-[10px_0_0_10px]"
-                    }`}
+                    className="h-75 relative block bg-no-repeat bg-cover overflow-hidden rounded-[10px]"
                   >
                     <img
                       className="w-full h-full object-cover transition-all duration-600 filter-none pointer-none hover:scale-110"
-                      src={"statics/images/list_02.png"}
+                      src={"statics/images/list_01.png"}
                       alt=""
                     />
                   </Link>
                 </div>
                 <div
-                  className={`relative inline-block w-2/5 ${
+                  className={`relative inline-block w-2/5 m-[30px_10px_10px_0] ${
                     index % 2 === 0
-                      ? "float-right pr-8 pl-0 m-[30px_10px_0]"
-                      : "float-left pl-8 pr-0 text-right m-[30px_10px_10px_0]"
+                      ? "float-right pr-8 pl-0 text-left"
+                      : "float-left pl-8 pr-0 text-right"
                   }`}
                 >
                   <div className="text-[#888] text-[14px]">
-                    {/**TODO 往后处理徽章一事 */}
                     <i className="iconfont icon-time mr-[5px] text-[#989898] text-[14px]" />
                     发布于
                   </div>
@@ -70,19 +65,16 @@ export function ListWrapper() {
                   </Link>
                   <div className="text-[#888] text-[14px]">
                     <span>
-                      {/**TODO 往后处理徽章一事 */}
-                      <i className="iconfont icon-attention mr-[5px] text-[#989898] text-[14px]" />
+                      <i className="iconfont icon-attention_light mr-[5px] text-[#989898] text-[14px]" />
                       热度
                     </span>
                     <span className="mx-[10px]">
-                      {/**TODO 往后处理徽章一事 */}
-                      <i className="iconfont icon-mark mr-[5px] text-[#989898] text-[14px]" />
+                      <i className="iconfont icon-icon_mark mr-[5px] text-[#989898] text-[14px]" />
                       评论
                     </span>
                     {invoice.channel_name && (
                       <span>
-                        {/**TODO 往后处理徽章一事 */}
-                        <i className="iconfont icon-file mr-[5px] text-[#989898] text-[14px]" />
+                        <i className="iconfont icon-icon_file mr-[5px] text-[#989898] text-[14px]" />
                         {invoice.channel_name}
                       </span>
                     )}
@@ -94,8 +86,7 @@ export function ListWrapper() {
                     </p>
                     <div>
                       <Link to={"/backend/articlelist"}>
-                        {/**TODO 往后处理徽章一事 */}
-                        <i className="iconfont icon-caidan text-[25px] text-[#666] hover:text-[#fe9600]" />
+                        <i className="iconfont icon-icon_caidan text-[#666] hover:text-[#fe9600]" />
                       </Link>
                     </div>
                   </div>
@@ -107,5 +98,15 @@ export function ListWrapper() {
       </div>
     );
   }
-  return <div className="w-full">{listtest()}</div>;
+  return (
+    <div className="w-full">
+      <div className="w-full h-auto mt-[55px] inline-block">
+        <h1 className="text-[#666] text-[16px] font-bold mt-2.5 leading-6 pb-[5px] mb-[30px] border-b border-dashed border-[#ececec]">
+          <i className="iconfont icon-envira" />
+          <span> Discovery</span>
+        </h1>
+      </div>
+      {listtest()}
+    </div>
+  );
 }

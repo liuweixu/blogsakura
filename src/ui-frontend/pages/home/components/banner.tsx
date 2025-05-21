@@ -17,19 +17,19 @@ export const Banner = () => {
           />
           <WaveAnimation
             zIndex="z-[15]"
-            opacity={75}
+            opacity={70}
             imageUrl="statics/images/wave-mid.png"
             waveWidth="50%"
             waveHeight="120px"
-            animationDuration="10s linear infinite"
+            animationDuration="15s linear infinite"
           />
           <WaveAnimation
             zIndex="z-[20]"
-            opacity={100}
+            opacity={80}
             imageUrl="statics/images/wave-bot.png"
             waveWidth="50%"
             waveHeight="100px"
-            animationDuration="15s linear infinite"
+            animationDuration="25s linear infinite"
           />
         </div>
 
@@ -52,19 +52,17 @@ export const Banner = () => {
                     fontFamily: "Ubuntu, sans-serif",
                   }}
                 >
-                  {/**添加左引号和右引号的图标 但是这部分有问题*/}
-                  <i className="iconfont icon-quote-left" />
                   <span className="mx-[10px] my-0">
                     {
                       "You got to put the past behind you before you can move on."
                     }
                   </span>
-                  <i className="iconfont icon-quoteright" />
                 </p>
                 {/**这部分待定 */}
                 <div className="h-[35px] mb-[-10px] list-none inline-block">
                   <li className="relative h-[35px] float-left m-[0_6px] cursor-[url('statics/images/ayuda.cur')_auto]">
                     <img
+                      className="h-[35px] w-[35px] p-[6px] bg-[0_0]"
                       style={{
                         MozTransform: "scaleX(-1)",
                         WebkitTransform: "scaleX(-1)",
@@ -72,12 +70,16 @@ export const Banner = () => {
                         transform: "scaleX(-1)",
                         filter: "FlipH",
                       }}
-                      src="url('statics/images/next-b.svg')"
+                      src="statics/images/next-b.svg"
                       alt=""
                     />
                   </li>
-                  <li>
-                    <img src="url('statics/images/next-b.svg')" alt="" />
+                  <li className="relative h-[35px] float-left m-[0_6px] cursor-[url('statics/images/ayuda.cur')_auto]">
+                    <img
+                      className="h-[35px] w-[35px] p-[6px] bg-[0_0]"
+                      src="statics/images/next-b.svg"
+                      alt=""
+                    />
                   </li>
                 </div>
               </div>

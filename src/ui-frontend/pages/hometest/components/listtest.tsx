@@ -3,6 +3,7 @@ import { getArticleHomeAPI } from "@/ui-frontend/apis/home";
 import { useEffect, useState } from "react";
 import { FeatureTitle, HomeList, BlogList } from "./style";
 import { Link } from "react-router-dom";
+import "../../../../../public/statics/iconfont/iconfont.css";
 
 export function ListWrapper() {
   const [data, setData] = useState<ArticleItem[]>([]);

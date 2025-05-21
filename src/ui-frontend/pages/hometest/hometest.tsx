@@ -1,6 +1,6 @@
 import { Banner } from "./components/bannertest";
-import { Feature } from "./components/feature";
-import { ListWrapper } from "./components/list";
+import { Feature } from "./components/featuretest";
+import { ListWrapper } from "./components/listtest";
 import { HomeWrapper, MainWrapper } from "./components/style";
 function App() {
   return (
