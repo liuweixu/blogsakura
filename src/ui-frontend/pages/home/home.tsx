@@ -17,7 +17,12 @@ function App() {
   // }, []);
 
   return (
-    <div className="w-full">
+    <div
+      className="w-full"
+      style={{
+        cursor: "url('/statics/images/texto.cur'), auto",
+      }}
+    >
       <Banner />
       {/**MainWrapper */}
       <div

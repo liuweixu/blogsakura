@@ -40,7 +40,7 @@ export function ListWrapper() {
                     className="h-75 relative block bg-no-repeat bg-cover overflow-hidden rounded-[10px]"
                   >
                     <img
-                      className="w-full h-full object-cover transition-all duration-600 filter-none pointer-none hover:scale-110"
+                      className="w-full h-full object-cover transition-all duration-600 filter-none pointer-none hover:scale-110 hover:rotate-3"
                       src={"/statics/images/list_01.png"}
                       alt=""
                     />
