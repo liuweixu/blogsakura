@@ -35,10 +35,10 @@ export function Feature() {
                   />
                 </div>
                 <div className="absolute inset-0 text-center invisible backface-hidden bg-black/60 opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-350 ease-in-out">
-                  <h3 className="ellipsis uppercase text-white text-center text-[17px] p-2.5 bg-[#111]/80 m-[40px_0_0] transition-all duration-350 ease-in-out -translate-x-full group-hover:translate-x-0">
+                  <h3 className="uppercase text-white text-center text-xl p-2.5 bg-[#111]/80 m-[40px_0_0] transition-all duration-350 ease-in-out -translate-x-full group-hover:translate-x-0">
                     {invoice.title}
                   </h3>
-                  <p className="ellipsis-two italic text-xs relative text-[#bbb] p-[0_20px] text-center transtion-all duration-300 ease-linear delay-100 translate-x-full mt-4 h-10 leading-5 group-hover:translate-x-0">
+                  <p className="italic text-xs relative text-gray-300 text-center transtion-all duration-300 ease-linear delay-100 translate-x-full mt-4 h-10 leading-5 group-hover:translate-x-0">
                     {invoice.content}
                   </p>
                 </div>
@@ -51,7 +51,7 @@ export function Feature() {
   }
 
   return (
-    <div>
+    <div className="max-md:hidden">
       <div className="w-full h-auto mt-[55px] inline-block">
         <h1 className="text-[#666] text-[16px] font-bold mt-2.5 leading-6 pb-1.5 mb-8 border-b border-dashed border-[#ececec]">
           {/**TODO 这部分先待定 */}

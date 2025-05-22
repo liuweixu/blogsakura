@@ -17,16 +17,11 @@ function App() {
   // }, []);
 
   return (
-    <div
-      className="w-full"
-      style={{
-        cursor: "url('/statics/images/texto.cur'), auto",
-      }}
-    >
+    <div className="w-full">
       <Banner />
       {/**MainWrapper */}
       <div
-        className="w-full max-w-[900px] p-[0_10px] ml-auto mr-auto bg-white/80"
+        className="w-full max-w-[900px] px-2.5 mx-auto"
         id="content"
         style={{
           animation: "main 1s",

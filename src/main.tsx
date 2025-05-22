@@ -8,10 +8,15 @@ import { router } from "./routerall";
 import { Toaster } from "sonner";
 import "@ant-design/v5-patch-for-react-19";
 import "./statics/iconfont/iconfont.css";
+// import { Header } from "@/ui-frontend/pages/header";
 
 createRoot(document.getElementById("root")!).render(
   <Provider store={store}>
+    {/* <BrowserRouter> */}
+    {/* <Header /> */}
     <RouterProvider router={router}></RouterProvider>
     <Toaster />
+
+    {/* </BrowserRouter> */}
   </Provider>
 );

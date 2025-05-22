@@ -22,7 +22,7 @@ export const WaveAnimation = ({
       }`}
     >
       <div
-        className="absolute left-0 w-[200%] h-full bg-repeat-x bg-left-bottom origin-[center_bottom]"
+        className="w-[200%] h-full bg-repeat-x bg-left-bottom origin-[center_bottom]"
         style={{
           backgroundImage: `url('${imageUrl}')`,
           backgroundSize: `${waveWidth} ${waveHeight}`,

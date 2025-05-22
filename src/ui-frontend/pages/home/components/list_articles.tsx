@@ -20,11 +20,11 @@ export function ListWrapper() {
 
   function listtest() {
     return (
-      <div className="w-full">
+      <div>
         {data.map((invoice, index) => {
           return (
             <div
-              className="w-full h-[300px] relative m-[30px_0] rounded-[10px] shadow-[0_1px_20px_-6px_rgba(0,0,0,0.5)] opacity-0 transition-shadow duration-300 ease-[ease] hover:shadow-[0_5px_10px_5px_rgba(110,110,110,0.4)] post-list-show"
+              className="relative overflow-hidden my-12 rounded-2xl shadow-[0_1px_20px_-6px_rgba(0,0,0,0.5)] transition-shadow duration-300 ease-[ease] hover:shadow-[0_5px_10px_5px_rgba(110,110,110,0.4)] post-list-show"
               key={invoice.id}
             >
               <div>
@@ -37,11 +37,11 @@ export function ListWrapper() {
                 >
                   <Link
                     to={"/backend/articlelist"}
-                    className="h-75 relative block bg-no-repeat bg-cover overflow-hidden rounded-[10px]"
+                    className="relative h-75 block bg-no-repeat bg-cover overflow-hidden"
                   >
                     <img
-                      className="w-full h-full object-cover transition-all duration-600 filter-none pointer-none hover:scale-110 hover:rotate-3"
-                      src={"/statics/images/list_01.png"}
+                      className="h-full w-full object-cover transition-all duration-600 hover:scale-110 hover:rotate-3"
+                      src={"/statics/images/list_05.png"}
                       alt=""
                     />
                   </Link>
@@ -61,30 +61,32 @@ export function ListWrapper() {
                     to={"/article/" + invoice.id}
                     className="block my-[18px]"
                   >
-                    <h3 className="text-ellipsis line-clamp-2 overflow-hidden break-words text-[16px] font-bold text-[#504e4e] transition-colors duration-200 ease-out hover:text-[#fe9600]">
+                    <h3 className="line-clamp-2 overflow-hidden break-words font-bold text-[#504e4e] transition-colors duration-200 ease-out hover:text-[#fe9600]">
                       {index}
                     </h3>
                   </Link>
-                  <div className="text-[#888] text-[14px]">
+                  {/**text-xs  12px  */}
+                  <div className="text-[#888] text-xs">
                     <span>
-                      <i className="iconfont icon-attention_light mr-[5px] text-[#989898] text-[14px]" />
+                      <i className="iconfont icon-attention_light mr-1.5 text-[#989898] text-xs" />
                       热度
                     </span>
                     <span className="mx-[10px]">
-                      <i className="iconfont icon-icon_mark mr-[5px] text-[#989898] text-[14px]" />
+                      <i className="iconfont icon-icon_mark mr-1.5 text-[#989898] text-xs" />
                       评论
                     </span>
                     {invoice.channel_name && (
                       <span>
-                        <i className="iconfont icon-icon_file mr-[5px] text-[#989898] text-[14px]" />
+                        <i className="iconfont icon-icon_file mr-1.5 text-[#989898] text-xs" />
                         {invoice.channel_name}
                       </span>
                     )}
                   </div>
-                  <div className="relative w-full right-0 my-0 p-0 z-50 text-[rgba(0,0,0,0.66)]">
-                    <p className="line-clamp-3 h-[69px] overflow-hidden my-[16px_0_22px_0] text-[15px] text-[rgba(0,0,0,0.66)] leading-[23px]">
-                      {invoice.content}
-                      {invoice.id}
+                  <div className="relative w-full my-2 z-50 text-black/66">
+                    <p className="overflow-hidden my-5 leading-6 line-clamp-3">
+                      测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+                      测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
+                      测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
                     </p>
                     <div>
                       <Link to={"/article/" + invoice.id}>
@@ -102,8 +104,8 @@ export function ListWrapper() {
   }
   return (
     <div className="w-full">
-      <div className="w-full h-auto mt-[55px] inline-block">
-        <h1 className="text-[#666] text-[16px] font-bold mt-2.5 leading-6 pb-[5px] mb-[30px] border-b border-dashed border-[#ececec]">
+      <div className="w-full h-auto mt-14 inline-block">
+        <h1 className="text-[#666] font-bold mt-2.5 mb-7.5 border-b border-dashed border-[#ececec]">
           <i className="iconfont icon-envira" />
           <span> Discovery</span>
         </h1>
