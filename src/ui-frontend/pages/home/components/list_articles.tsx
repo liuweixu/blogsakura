@@ -24,7 +24,9 @@ export function ListWrapper() {
         {data.map((invoice, index) => {
           return (
             <div
-              className="relative overflow-hidden my-12 rounded-2xl shadow-[0_1px_20px_-6px_rgba(0,0,0,0.5)] transition-shadow duration-300 ease-[ease] hover:shadow-[0_5px_10px_5px_rgba(110,110,110,0.4)] post-list-show"
+              className="relative overflow-hidden my-12 rounded-2xl shadow-[0_1px_20px_-6px_rgba(0,0,0,0.5)] 
+                         transition-shadow duration-300 ease-[ease] hover:shadow-[0_5px_10px_5px_rgba(110,110,110,0.4)] 
+                         post-list-show"
               key={invoice.id}
             >
               <div>
@@ -47,20 +49,17 @@ export function ListWrapper() {
                   </Link>
                 </div>
                 <div
-                  className={`relative inline-block w-2/5 m-[30px_10px_10px_0] ${
+                  className={`relative inline-block w-2/5 mt-7.5 mr-2.5 mb-2.5 ${
                     index % 2 === 0
                       ? "float-right pr-8 pl-0 text-left"
                       : "float-left pl-8 pr-0 text-right"
                   }`}
                 >
-                  <div className="text-[#888] text-[14px]">
-                    <i className="iconfont icon-time mr-[5px] text-[#989898] text-[14px]" />
+                  <div className="text-[#888] text-sm">
+                    <i className="iconfont icon-time mr-1.5 text-[#989898] text-sm" />
                     发布于
                   </div>
-                  <Link
-                    to={"/article/" + invoice.id}
-                    className="block my-[18px]"
-                  >
+                  <Link to={"/article/" + invoice.id} className="block my-4.5">
                     <h3 className="line-clamp-2 overflow-hidden break-words font-bold text-[#504e4e] transition-colors duration-200 ease-out hover:text-[#fe9600]">
                       {index}
                     </h3>
@@ -71,7 +70,7 @@ export function ListWrapper() {
                       <i className="iconfont icon-attention_light mr-1.5 text-[#989898] text-xs" />
                       热度
                     </span>
-                    <span className="mx-[10px]">
+                    <span className="mx-2.5">
                       <i className="iconfont icon-icon_mark mr-1.5 text-[#989898] text-xs" />
                       评论
                     </span>
