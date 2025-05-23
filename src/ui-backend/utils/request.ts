@@ -1,12 +1,14 @@
 import axios from "axios";
 import { getToken, removeToken as clearToken } from "./token";
-import { router } from "../router";
 
 const request = axios.create({
   baseURL: "/",
   timeout: 5000,
 });
 
+const navigate = (path: string) => {
+  window.location.href = path;
+};
 // 添加请求拦截器
 request.interceptors.request.use(
   (config) => {
@@ -33,7 +35,7 @@ request.interceptors.response.use(
     console.dir(error);
     if (error.response.status === 401) {
       clearToken();
-      router.navigate("/login");
+      navigate("/login");
       window.location.reload();
     }
     return Promise.reject(error);
