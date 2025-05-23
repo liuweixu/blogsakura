@@ -7,6 +7,7 @@ import { ArticleList } from "@/ui-backend/pages/ArticleList";
 import { Publish } from "@/ui-backend/pages/Publish";
 import { Setting } from "@/ui-backend/pages/Setting";
 import { Test } from "@/ui-backend/pages/Test";
+import { Error } from "@/components/error";
 
 export const RouterBackend = () => {
   return (
@@ -26,6 +27,7 @@ export const RouterBackend = () => {
         <Route path="test" element={<Test />} />
       </Route>
       <Route path="/backend/login" element={<Login />} />
+      <Route path="*" element={<Error />} />
     </Routes>
   );
 };

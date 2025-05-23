@@ -1,10 +1,18 @@
-import { Button } from "@/components/ui/button";
+import { RouterBackend } from "@/ui-backend/router";
+import { RouterFrontend } from "./ui-frontend/router";
+import { useLocation } from "react-router-dom";
 
 function App() {
+  const location = useLocation();
+
+  if (location.pathname.startsWith("/backend")) {
+    return <RouterBackend />;
+  }
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-svh">
-      <Button>Click me</Button>
-    </div>
+    <>
+      <RouterFrontend />
+    </>
   );
 }
 
