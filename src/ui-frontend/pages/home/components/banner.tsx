@@ -4,11 +4,15 @@ export const Banner = () => {
   return (
     //{/**注意上面要加入before选择器，让grid这个模糊图片盖上原来图片，从而形成新样式的背景图 */}
     <div
+      id="banner-wrapper"
       className="relative overflow-hidden h-auto before:content-[''] before:absolute before:inset-0 before:z-3 before:bg-fixed 
       before:bg-[url('statics/images/grid.png')]"
     >
       {/**三条波浪 */}
-      <div className="absolute overflow-hidden inset-0 m-auto">
+      <div
+        id="wave-wrapper"
+        className="absolute overflow-hidden inset-0 m-auto"
+      >
         <WaveAnimation
           zIndex="z-10"
           opacity={50}
@@ -36,15 +40,15 @@ export const Banner = () => {
       </div>
 
       {/**TODO 顶部向下动画 尚未添加事件 待定 */}
-      {/* Scroll down button */}
-      <div className=""></div>
+      <div id="header-top-down" className=""></div>
       {/**内容模块 Center Content*/}
       <div
+        id="center"
         className="w-full h-screen bg-center-top bg-fixed bg-no-repeat bg-cover -z-10
           bg-[url('https://api.mtyqx.cn/api/random.php')]"
       >
-        {/**Focusinfo */}
         <div
+          id="focus-info"
           className="relative max-w-200 p-2.5 top-1/2 left-1/2 -translate-1/2 text-center
            z-100 transition-all duration-400 ease-in-out md:block hidden"
         >
@@ -53,6 +57,7 @@ export const Banner = () => {
           </h1>
           {/**对您好下面的黑色方框（带有箭头）绘制 */}
           <div
+            id="header-box-info"
             className="relative w-[65%] m-auto text-[#eaeadf] bg-black/50
               p-4 mt-6 leading-7.5 rounded-2xl box-content whitespace-nowrap before:content-['']
               before:absolute before:-top-[29px] before:left-2/5 before:-ml-2.5 before:border-15 
@@ -64,7 +69,10 @@ export const Banner = () => {
               </span>
             </p>
             {/**这部分 初步完成，剩下就是添加事件和应用 */}
-            <div className="h-9 -mb-2.5 list-none inline-block">
+            <div
+              id="header-social"
+              className="h-9 -mb-2.5 list-none inline-block"
+            >
               <li className="relative float-left mx-1.5">
                 <img
                   className="h-9 w-9 p-1.5 -scale-100"

@@ -20,7 +20,7 @@ export function ListWrapper() {
 
   function listtest() {
     return (
-      <div>
+      <div id="blog-list">
         {data.map((invoice, index) => {
           return (
             <div
