@@ -20,12 +20,12 @@ function App() {
               bilibili
             </a>
           </div>
-          <div id="nav-right" className="h-19">
-            <div id="flex-item" className="h-19">
-              <ul id="nav" className="h-19">
-                <li id="nav-item" className="p-[0_15px] float-right">
+          <div id="nav-right" className="float-right">
+            <div id="flex-item">
+              <ul id="nav">
+                <li id="nav-item" className="p-[0_15px] float-left">
                   <Link
-                    to={"/"}
+                    to={"/articlelist"}
                     id="nav-item"
                     className="block text-[#666666] text-base h-10 leading-20 relative
                     after:contentt-[''] after:block after:absolute after:-bottom-4.5 after:h-1.5 after:bg-[#fe9600] after:w-0
@@ -35,9 +35,9 @@ function App() {
                     <span>首页</span>
                   </Link>
                 </li>
-                <li id="nav-item" className="p-[0_15px] float-right">
+                <li id="nav-item" className="p-[0_15px] float-left">
                   <Link
-                    to={"/"}
+                    to={"/articlelist"}
                     id="nav-item"
                     className="block text-[#666666] text-base h-10 leading-20 relative
                     after:contentt-[''] after:block after:absolute after:-bottom-4.5 after:h-1.5 after:bg-[#fe9600] after:w-0
