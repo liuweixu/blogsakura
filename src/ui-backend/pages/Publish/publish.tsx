@@ -20,11 +20,15 @@ import {
 
 import type { ChannelItem } from "@/ui-backend/interface/Publish";
 import { useSearchParams } from "react-router-dom";
-import { PlusOutlined } from '@ant-design/icons';
 
-import { Button, Form, Input, Select, Space, Breadcrumb, Radio, Upload } from 'antd';
+
+import { Button, Form, Input, Select, Space, Breadcrumb, Radio } from 'antd';
 import ReactQuill from 'react-quill-new';
 import './index.css';
+import { Upload, message } from "antd";
+import { getUploadKeyAPI } from "@/ui-backend/apis/upload";
+import COS from "cos-js-sdk-v5";
+import { PlusOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -38,14 +42,6 @@ const tailLayout = {
 };
 
 export function PublishArticle() {
-  // const form = useForm({
-  //   defaultValues: {
-  //     title: "",
-  //     richtext: "",
-  //     channel: "", // 添加初始空值
-  //   },
-  // });
-
   const [form] = Form.useForm();
 
   const [channelList, setChannelList] = useState<ChannelItem[]>([]);
@@ -94,7 +90,11 @@ export function PublishArticle() {
     getArticleDetail();
   }, [articleId, form, channelList]); // 添加channelList依赖
 
-  //提交数据
+  /**
+   * 
+   * 提交表格
+   * 
+   */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = (values: any) => {
     console.log(values);
@@ -110,6 +110,97 @@ export function PublishArticle() {
   const onReset = () => {
     form.resetFields();
   };
+
+  /**
+   * 上传图像部分 + 腾讯云COS
+   */
+  const [cos, setCos] = useState<COS | null>(null);
+  const [valueList, setValueList] = useState([]);
+  useEffect(() => {
+    const fetchdata = async () => {
+      const res = await getUploadKeyAPI();
+      const SecretId = res.data.data.secretId;
+      const SecretKey = res.data.data.secretKey;
+      const Bucket = res.data.data.bucket;
+      const Region = res.data.data.region;
+
+      //初始化COS实例
+      const cosInstance = new COS({
+        SecretId,
+        SecretKey
+      });
+
+      // 保存实例 + bucket/region 信息
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (cosInstance as any).bucket = Bucket;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (cosInstance as any).region = Region;
+
+      setCos(cosInstance);
+    };
+    fetchdata();
+  }, [])
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const customRequest = async (options: any) => {
+    if (!cos) {
+      message.error("COS 未初始化");
+      return;
+    }
+
+    const { file, onSuccess, onError, onProgress } = options;
+
+    try {
+      cos.uploadFile(
+        {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          Bucket: (cos as any).bucket,
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          Region: (cos as any).region,
+          Key: `images/${Date.now()}_${file.name}`, // 保存路径
+          Body: file,
+          SliceSize: 1024 * 1024 * 5, // 5MB 分片
+          onProgress: (progressData) => {
+            onProgress({ percent: progressData.percent * 100 });
+          },
+        },
+        (err, data) => {
+          if (err) {
+            console.error("上传失败:", err);
+            onError(err);
+          } else {
+            console.log("上传成功:", data);
+            onSuccess(data);
+            message.success("上传成功");
+          }
+        }
+      );
+    } catch (err) {
+      console.error("上传异常:", err);
+      onError(err);
+    }
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onUploadChange = (value: any) => {
+    // console.log('正在上传中', value);
+    setValueList(value.fileList);
+    console.log(valueList);
+  }
+
+  /**
+   * 
+   * 单图与无图的判断和相应处理方式
+   * maxCount是控制图像的添加此数
+   * 单图时候，利用条件表达式实现
+   * 无图的时候，利用后端处理，添加随机图像就行
+   */
+
+  const [imageType, setImageType] = useState(Number);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onImageTypeChange = (e: any) => {
+    setImageType(e.target.value);
+  }
 
   return (
     <div style={{ maxWidth: 800, marginLeft: 0 }}>
@@ -155,7 +246,7 @@ export function PublishArticle() {
         </Form.Item>
         <Form.Item label="封面">
           <Form.Item name="type">
-            <Radio.Group>
+            <Radio.Group onChange={onImageTypeChange}>
               <Radio value={1}>单图</Radio>
               <Radio value={0}>无图</Radio>
             </Radio.Group>
@@ -166,14 +257,22 @@ export function PublishArticle() {
              * showUploadList: 是否展示已上传文件列表
              */
           }
-          <Upload
-            listType="picture-card"
-            showUploadList
-          >
-            <div style={{ marginTop: 8 }}>
-              <PlusOutlined />
-            </div>
-          </Upload>
+          {imageType > 0 &&
+            <Upload
+              name="image"
+              listType="picture-card"
+              accept="image/*"
+              customRequest={customRequest}
+              showUploadList
+              maxCount={imageType}
+              onChange={onUploadChange}
+            >
+              <div>
+                <PlusOutlined />
+              </div>
+            </Upload>
+          }
+
         </Form.Item>
         <Form.Item {...tailLayout}>
           <Space>
