@@ -2,7 +2,7 @@
   "mysql": {
     "host": "localhost",
     "user": "root",
-    "password": "",
+    "password": "12345678",
     "database": "blog",
     "port": 3306,
     "waitForConnections": true,

@@ -43,7 +43,7 @@ export function Feature() {
                   className="transition-all duration-350 ease-in-out scale-100 h-full group-hover:scale-120"
                 >
                   <img
-                    src="https://www.dmoe.cc/random.php"
+                    src={`https://api.r10086.com/樱道随机图片api接口.php?图片系列=动漫综合${Math.floor(Math.random() * 18) + 1}`}
                     alt=""
                     className="w-full h-full"
                   />
@@ -52,11 +52,11 @@ export function Feature() {
                   id="info"
                   className="absolute inset-0 text-center invisible backface-hidden bg-black/60 opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-350 ease-in-out"
                 >
-                  <h3 className="uppercase text-white text-center text-xl p-2.5 bg-[#111]/80 mt-10 transition-all duration-350 ease-in-out -translate-x-full group-hover:translate-x-0">
+                  <h3 className="uppercase text-white text-center text-xl p-2.5 bg-[#111]/80 mt-10 transition-all duration-350 ease-in-out -translate-x-full group-hover:translate-x-0 text-ellipsis">
                     {invoice.title}
                   </h3>
-                  <p className="italic text-xs relative text-gray-300 text-center transtion-all duration-300 ease-linear delay-100 translate-x-full mt-4 h-10 leading-5 group-hover:translate-x-0">
-                    {invoice.content}
+                  <p className="italic text-xs relative text-gray-300 text-center transtion-all duration-300 ease-linear delay-100 translate-x-full mt-4 h-10 leading-5 group-hover:translate-x-0 ellipsis-two">
+                    {invoice.content.replace(/<[^>]+>/g, "").slice(0, 10) + "..."}
                   </p>
                 </div>
               </Link>

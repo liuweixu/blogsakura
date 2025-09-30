@@ -21,8 +21,8 @@ export const RouterBackend = () => {
         }
       >
         <Route path="home" element={<Home />} />
-        <Route path="publish" element={<Publish />} />
         <Route path="articlelist" element={<ArticleList />} />
+        <Route path="publish" element={<Publish />} />
         <Route path="setting" element={<Setting />} />
         <Route path="test" element={<Test />} />
       </Route>

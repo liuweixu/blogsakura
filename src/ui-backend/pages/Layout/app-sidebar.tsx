@@ -1,103 +1,95 @@
-import * as React from "react";
-
+import React, { useState } from 'react';
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarRail,
-} from "@/components/ui/sidebar";
-import { useLocation, useNavigate } from "react-router-dom";
-import classNames from "classnames";
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UploadOutlined,
+  UserOutlined,
+  VideoCameraOutlined,
+} from '@ant-design/icons';
+import { Button, Layout, Menu, theme } from 'antd';
+import { Outlet, useNavigate } from 'react-router-dom';
+const { Header, Sider, Content } = Layout;
 
-const data = {
-  navMain: [
-    {
-      title: "个人博客后台管理系统",
-      url: "/backend/",
-      items: [
-        {
-          title: "首页",
-          url: "/backend/home",
-          isActive: false,
-        },
-        {
-          title: "文章列表",
-          url: "/backend/articlelist",
-          isActive: true,
-        },
-        {
-          title: "发表文章",
-          url: "/backend/publish",
-          isActive: false,
-        },
-        {
-          title: "设置",
-          url: "/backend/setting",
-          isActive: false,
-        },
-        {
-          title: "测试",
-          url: "/backend/test",
-          isActive: false,
-        },
-      ],
-    },
-  ],
+
+const App: React.FC = () => {
+  const [collapsed, setCollapsed] = useState(false);
+  //路由跳转
+  const navigate = useNavigate();
+
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
+
+  return (
+    <Layout>
+      <Sider trigger={null} collapsible collapsed={collapsed}>
+        <div className="demo-logo-vertical" />
+        <Menu
+          theme="dark"
+          mode="inline"
+          defaultSelectedKeys={['1']}
+          // selectedKeys={[selectedKey]}
+          items={[
+            {
+              key: '1',
+              icon: <UserOutlined />,
+              label: '首页',
+              onClick: () => navigate('/backend/home'),
+            },
+            {
+              key: '2',
+              icon: <VideoCameraOutlined />,
+              label: '发布文章',
+              onClick: () => navigate('/backend/publish'),
+            },
+            {
+              key: '3',
+              icon: <UploadOutlined />,
+              label: '文章列表',
+              onClick: () => navigate('/backend/articlelist'),
+            },
+            {
+              key: '4',
+              icon: <UploadOutlined />,
+              label: '设置',
+              onClick: () => navigate('/backend/setting'),
+            },
+            {
+              key: '5',
+              icon: <UploadOutlined />,
+              label: '测试',
+              onClick: () => navigate('/backend/test'),
+            },
+          ]}
+        />
+      </Sider>
+      <Layout>
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+          <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: '16px',
+              width: 64,
+              height: 64,
+            }}
+          />
+        </Header>
+        <Content
+          style={{
+            margin: '24px 16px',
+            padding: 24,
+            minHeight: '100vh',
+            background: colorBgContainer,
+            borderRadius: borderRadiusLG,
+          }}
+        >
+          <Outlet />
+        </Content>
+      </Layout>
+    </Layout>
+  );
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const menuClick = (route: {
-    title?: string;
-    url: string;
-    isActive?: boolean;
-  }) => {
-    navigate(route.url);
-  };
-  return (
-    <div>
-      <Sidebar {...props}>
-        <SidebarHeader></SidebarHeader>
-        <SidebarContent>
-          {data.navMain.map((item) => (
-            <SidebarGroup key={item.title}>
-              <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
-              <SidebarGroupContent>
-                <SidebarMenu>
-                  {item.items.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild>
-                        <a
-                          href={item.url}
-                          onClick={() => {
-                            menuClick(item);
-                          }}
-                          className={classNames({
-                            "bg-accent text-accent-foreground font-bold shadow-md bg-primary/15":
-                              location.pathname === item.url,
-                            "hover:bg-accent/00":
-                              location.pathname !== item.url,
-                          })}
-                        >
-                          {item.title}
-                        </a>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  ))}
-                </SidebarMenu>
-              </SidebarGroupContent>
-            </SidebarGroup>
-          ))}
-        </SidebarContent>
-        <SidebarRail />
-      </Sidebar>
-    </div>
-  );
-}
+export default App;

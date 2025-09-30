@@ -1,48 +1,53 @@
+/**
+ * 发布文章
+ * 需要有上传表单
+ * 要有上传文章封面 目测用单图和无图即可，其中无图可以用随机图片
+ * 必须有文章标题和类别
+ * 使用富文本插件，由于react版本为19，与react-quill不兼容，使用react-quill-new
+ * 参考链接
+ * https://www.npmjs.com/package/react-quill-new
+ */
+
 "use client";
 
-import { useForm, type FieldValues } from "react-hook-form";
-
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-
-import RichTextEditor from "@/ui-backend/components/Editor";
+// import RichTextEditor from "@/ui-backend/components/Editor";
 import { useEffect, useState } from "react";
 import {
-  addArticleAPI,
-  editArticleAPI,
   getArticleById,
   getChannelAPI,
+  addArticleAPI,
 } from "@/ui-backend/apis/article";
-import { toast } from "sonner";
+
 import type { ChannelItem } from "@/ui-backend/interface/Publish";
 import { useSearchParams } from "react-router-dom";
+import { PlusOutlined } from '@ant-design/icons';
 
-import { Header } from "@/ui-backend/components/Header";
+import { Button, Form, Input, Select, Space, Breadcrumb, Radio, Upload } from 'antd';
+import ReactQuill from 'react-quill-new';
+import './index.css';
+
+const { Option } = Select;
+
+const layout = {
+  labelCol: { span: 8 },
+  wrapperCol: { span: 16 },
+};
+
+const tailLayout = {
+  wrapperCol: { offset: 8, span: 16 },
+};
 
 export function PublishArticle() {
-  const form = useForm({
-    defaultValues: {
-      title: "",
-      richtext: "",
-      channel: "", // 添加初始空值
-    },
-  });
+  // const form = useForm({
+  //   defaultValues: {
+  //     title: "",
+  //     richtext: "",
+  //     channel: "", // 添加初始空值
+  //   },
+  // });
+
+  const [form] = Form.useForm();
+
   const [channelList, setChannelList] = useState<ChannelItem[]>([]);
   useEffect(() => {
     const getChannelList = async () => {
@@ -70,7 +75,7 @@ export function PublishArticle() {
         // 确保channelList已加载
         const res = await getArticleById(articleId.toString());
         if (res.data) {
-          form.reset({
+          form.setFieldsValue({
             title: res.data.title,
             richtext: res.data.content,
             channel: res.data.channel_name,
@@ -80,105 +85,108 @@ export function PublishArticle() {
             (c) => c.name === res.data.channel_name
           );
           if (channelExists) {
-            form.setValue("channel", res.data.channel_name);
+            form.setFieldValue("channel", res.data.channel_name);
           }
-          form.setValue("richtext", res.data.content);
+          form.setFieldValue("richtext", res.data.content);
         }
       }
     }
     getArticleDetail();
   }, [articleId, form, channelList]); // 添加channelList依赖
 
+  //提交数据
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onFinish = (values: any) => {
+    console.log(values);
+    const { title, channel, content } = values;
+    const reqData = {
+      title,
+      content,
+      channel
+    }
+    addArticleAPI(reqData);
+  };
+
+  const onReset = () => {
+    form.resetFields();
+  };
+
   return (
-    <Form {...form}>
-      <Header href="/backend/home" title="首页" pagename="发布文章"></Header>
-      <div className="w-2/3 space-y-6">
-        <form
-          onSubmit={form.handleSubmit(async (formValues: FieldValues) => {
-            const { title, richtext, channel } = formValues;
-            const pushData = {
-              title: title,
-              content: richtext,
-              channel: channel,
-            };
-            //调用接口提交
-            const res = articleId
-              ? await editArticleAPI(articleId, pushData)
-              : await addArticleAPI(pushData);
-            if (res?.data.success) {
-              if (articleId) {
-                toast.success("成功", {
-                  description: "修改文章成功",
-                  action: {
-                    label: "关闭",
-                    onClick: () => console.log("Undo"),
-                  },
-                });
-              } else {
-                toast.success("成功", {
-                  description: "插入文章成功",
-                  action: {
-                    label: "关闭",
-                    onClick: () => console.log("Undo"),
-                  },
-                });
-              }
-            } else {
-              toast.error("失败", {
-                description: "插入文章失败",
-                action: {
-                  label: "关闭",
-                  onClick: () => console.log("Undo"),
-                },
-              });
-            }
-          })}
-        >
-          <FormItem>
-            <FormLabel>标题</FormLabel>
-            <FormControl>
-              <Input
-                id="title"
-                placeholder="请输入文章标题"
-                {...form.register("title")}
-                className="w-1/2"
-              />
-            </FormControl>
-            <FormDescription></FormDescription>
-            <FormMessage />
-            <FormLabel>频道</FormLabel>
-            <FormControl>
-              <Select
-                onValueChange={(value) => {
-                  form.setValue("channel", value);
-                }}
-                value={form.watch("channel")}
-              >
-                <SelectTrigger id="channel" className="w-1/2   relative z-50">
-                  <SelectValue placeholder="Select" />
-                </SelectTrigger>
-                <SelectContent position="popper" className="relative z-50">
-                  {channelList.map((item) => (
-                    <SelectItem key={item.id} value={item.name}>
-                      {item.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </FormControl>
-            <FormDescription></FormDescription>
-            <FormLabel>内容</FormLabel>
-            <FormControl>
-              <RichTextEditor
-                onChange={(value) => form.setValue("richtext", value)}
-                value={form.watch("richtext")} //TODO 这里触发回填
-              />
-            </FormControl>
-            <FormDescription></FormDescription>
-          </FormItem>
-          <Button type="submit">提交</Button>
-        </form>
-      </div>
-    </Form>
+    <div style={{ maxWidth: 800, marginLeft: 0 }}>
+      <Breadcrumb
+        separator=">"
+        items={[
+          {
+            title: '首页',
+            href: '/backend/home',
+          },
+          {
+            title: '文章发布',
+            href: '/backend/publish',
+          },
+        ]}
+        style={{ marginBottom: '36px' }}
+      />
+      <Form
+        {...layout}
+        form={form}
+        name="control-hooks"
+        onFinish={onFinish}
+      >
+        <Form.Item name="title" label="标题" rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+        <Form.Item name="channel" label="类别" rules={[{ required: true }]}>
+          <Select allowClear placeholder="请选择文章类别">
+            {channelList.map((channel) => (
+              <Option key={channel.id} value={channel.name}>
+                {channel.name}
+              </Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item name="content" label="内容" rules={[{ required: false }]}>
+          <ReactQuill
+            theme="snow"
+            className="publish-quill"
+            value={form.getFieldValue("richtext") || ""}
+            onChange={value => form.setFieldValue("richtext", value)}
+          />
+        </Form.Item>
+        <Form.Item label="封面">
+          <Form.Item name="type">
+            <Radio.Group>
+              <Radio value={1}>单图</Radio>
+              <Radio value={0}>无图</Radio>
+            </Radio.Group>
+          </Form.Item>
+          {
+            /**
+             * listType: 决定选择文件框的外观样式
+             * showUploadList: 是否展示已上传文件列表
+             */
+          }
+          <Upload
+            listType="picture-card"
+            showUploadList
+          >
+            <div style={{ marginTop: 8 }}>
+              <PlusOutlined />
+            </div>
+          </Upload>
+        </Form.Item>
+        <Form.Item {...tailLayout}>
+          <Space>
+            <Button type="primary" htmlType="submit">
+              提交
+            </Button>
+            <Button htmlType="button" onClick={onReset}>
+              重置
+            </Button>
+          </Space>
+        </Form.Item>
+      </Form>
+    </div>
+
   );
 }

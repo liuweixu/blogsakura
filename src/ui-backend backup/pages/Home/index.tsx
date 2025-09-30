@@ -1,4 +1,4 @@
-import Component from "./home";
+import { Component } from "./home";
 
 export const Home = () => {
   return <Component />;

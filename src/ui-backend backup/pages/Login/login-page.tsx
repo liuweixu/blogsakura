@@ -27,7 +27,7 @@ export function LoginPage() {
         onSubmit={form.handleSubmit(async (fromValue: FieldValues) => {
           //触发异步
           await dispatch(fetchLogin(fromValue) as unknown as AnyAction);
-          navigate("/backend/home"); //跳转至首页
+          navigate("/backend/"); //跳转至首页
           toast.success("登录成功", {
             description: "Sunday, December 03, 2023 at 9:00 AM",
             action: {
