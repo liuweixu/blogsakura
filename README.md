@@ -1,3 +1,33 @@
-## 个人博客【Demo版本】
+# 个人博客【Demo版本】
 
-此处个人博士主要以前端为主，参考
+## 介绍
+此处个人博士主要以前端为主，分为前端和后端界面，前端界面主要参考[Sakura](https://2heng.xin/)和[theme-react-sakura](https://github.com/open-snail/theme-react-sakura)，后端界面主要以antd进行搭建。后端开发中，主要使用express和nodejs，侧重于与mysql进行增删改查等操作。
+
+## 技术栈
+基本是前端技术栈方面
+React（19版本）、TypeScript/JavaScript、express、Nodejs、Antd、HTML、CSS、MySQL等。
+
+## 前端界面
+搭建该个人博客的初衷有多个：
+1. 为了丰富简历。 
+2. 对[Sakura](https://2heng.xin/)这个很早就很喜欢，想着有机会搞一个类似的。 
+3. [theme-react-sakura](https://github.com/open-snail/theme-react-sakura)虽然已经用react搭建，但是有的架构比较老，而且使用的css方式我觉得比较麻烦（即使用js文件直接用styled.div方式保存css），查看和修改不太方便，
+
+所以我之前开始使用React和TypeScript借鉴[Sakura](https://2heng.xin/)和[theme-react-sakura](https://github.com/open-snail/theme-react-sakura)搭建简单的demo版本个人博客。
+
+不过也因为是demo版本，有很多架构是没有搭建完成，在前端上，只有文章列表、文章页和Banner页搭建了，以后有时间我慢慢完善。
+
+## 后端界面
+后端界面直接使用antd组件库搭建的，目前就首页、文章发布页、文章列表页这几个部分。同样也是demo版本，以后有时间也会慢慢完善的。
+
+## 后端框架
+我设置前后端分离的主要目的还是认为搞一定的数据安全比较好一些，哪怕在这个简单的个人博客上，我还是遵循这个原则，对前端和后端分离。
+
+然后在后端与数据库的交互上，我使用express这一轻量级框架，通过使用nodejs，实现与MySQL的交互。
+
+# 个人说明
+十分抱歉，我弄出这个主要是想进一步巩固react的基础上，能够搭建自己喜欢的个人博客，之前我曾弄出以SpringBoot为核心的个人博客，但是由于当时对前端的不熟悉，只能用别人弄好的前端界面，这个界面我总觉得不太行，这也成了我心中的一根刺。
+
+现在我有点时间，也由于一些特殊的原因，开始弄react+ts的个人博客，风格参考我一直很喜欢的个人博客，但是目前还是demo版本.....
+
+很想给之前懒惰的自己一个大巴掌！
