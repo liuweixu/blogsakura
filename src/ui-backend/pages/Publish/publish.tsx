@@ -16,13 +16,14 @@ import {
   getArticleById,
   getChannelAPI,
   addArticleAPI,
+  editArticleAPI,
 } from "@/ui-backend/apis/article";
 
 import type { ChannelItem } from "@/ui-backend/interface/Publish";
 import { useSearchParams } from "react-router-dom";
 
 
-import { Button, Form, Input, Select, Space, Breadcrumb, Radio } from 'antd';
+import { Button, Form, Input, Select, Space, Breadcrumb, Radio, type UploadFile } from 'antd';
 import ReactQuill from 'react-quill-new';
 import './index.css';
 import { Upload, message } from "antd";
@@ -44,8 +45,8 @@ const tailLayout = {
 export function PublishArticle() {
   const [form] = Form.useForm();
   const [cos, setCos] = useState<COS | null>(null);
-  const [fileValue, setFileValue] = useState([]);
-  const [imageType, setImageType] = useState(Number);
+  const [fileValue, setFileValue] = useState<UploadFile[]>([]);
+  const [imageType, setImageType] = useState<number>(0);
 
   const [channelList, setChannelList] = useState<ChannelItem[]>([]);
   useEffect(() => {
@@ -55,43 +56,6 @@ export function PublishArticle() {
     };
     getChannelList();
   }, []);
-
-  //TODO 查询id是否存在-》即是否需要编辑文章
-  //回填数据
-  const [searchParams] = useSearchParams();
-  const articleId = searchParams.get("id");
-  //获取实例
-  useEffect(() => {
-    /** TODO 关键修改点：
-      1. 添加了channelList加载完成的检查
-      2. 确保channel_name在channelList中存在
-      3. 添加了channelList作为依赖项
-      4. 添加了数据有效性检查
-      这样修改后，当刷新页面时，会等待channelList加载完成后再尝试回填数据。
-    **/
-    async function getArticleDetail() {
-      if (articleId && channelList.length > 0) {
-        // 确保channelList已加载
-        const res = await getArticleById(articleId.toString());
-        if (res.data) {
-          form.setFieldsValue({
-            title: res.data.title,
-            richtext: res.data.content,
-            channel: res.data.channel_name,
-          });
-          // 确保channel_name在channelList中存在
-          const channelExists = channelList.some(
-            (c) => c.name === res.data.channel_name
-          );
-          if (channelExists) {
-            form.setFieldValue("channel", res.data.channel_name);
-          }
-          form.setFieldValue("richtext", res.data.content);
-        }
-      }
-    }
-    getArticleDetail();
-  }, [articleId, form, channelList]); // 添加channelList依赖
 
   /**
    * 
@@ -105,11 +69,15 @@ export function PublishArticle() {
       title,
       content,
       channel,
-      image_type: imageType.toString(),
+      image_type: imageType,
       image_url: fileValue.map(item => item.response.Location)[0]
     }
     console.log(reqData)
-    addArticleAPI(reqData);
+    if (articleId) {
+      editArticleAPI(articleId, reqData);
+    } else {
+      addArticleAPI(reqData);
+    }
   };
 
   const onReset = () => {
@@ -172,7 +140,6 @@ export function PublishArticle() {
             // console.error("上传失败:", err);
             onError(err);
           } else {
-            // console.log("上传成功:", data);
             onSuccess(data);
             message.success("上传成功");
           }
@@ -186,7 +153,6 @@ export function PublishArticle() {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onUploadChange = (value: any) => {
-    // console.log('正在上传中', value);
     setFileValue(value.fileList);
   }
 
@@ -195,14 +161,68 @@ export function PublishArticle() {
    * 单图与无图的判断和相应处理方式
    * maxCount是控制图像的添加此数
    * 单图时候，利用条件表达式实现
-   * 无图的时候，利用后端处理，添加随机图像就行
+   * 无图的时候，利用后端处理，添加随机图像就行，或者添加404图
    */
-
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onImageTypeChange = (e: any) => {
     setImageType(e.target.value);
   }
+
+  //实现编辑文章的逻辑
+  //TODO 查询id是否存在-》即是否需要编辑文章
+  //回填数据
+  //需要使用form.setFieldValue()来实现回填
+  //TODO 回调封面类型时（单图 无图）必须用number，如果用string就有可能识别不了
+  const [searchParams] = useSearchParams();
+  const articleId = searchParams.get("id");
+  //获取实例
+  useEffect(() => {
+    /** TODO 关键修改点：
+      1. 添加了channelList加载完成的检查
+      2. 确保channel_name在channelList中存在
+      3. 添加了channelList作为依赖项
+      4. 添加了数据有效性检查
+      这样修改后，当刷新页面时，会等待channelList加载完成后再尝试回填数据。
+    **/
+    async function getArticleDetail() {
+      if (articleId && channelList.length > 0) {
+        // 确保channelList已加载
+        const res = await getArticleById(articleId.toString());
+        if (res.data) {
+          form.setFieldsValue({
+            title: res.data.title,
+            content: res.data.content,
+            channel: res.data.channel_name,
+            image_type: res.data.image_type
+          });
+          setImageType(res.data.image_type);
+          if (res.data.image_url) {
+            // 构建回显 fileList
+            const fileList: UploadFile[] = [
+              {
+                uid: '-1',
+                name: res.data.image_url.split('/').pop() || 'image.jpg',
+                status: 'done',
+                url: `https://${res.data.image_url}`,
+                response: { Location: res.data.image_url }, // 保持和上传成功一致
+              },
+            ];
+            setFileValue(fileList);
+          }
+          // 确保channel_name在channelList中存在
+          const channelExists = channelList.some(
+            (c) => c.name === res.data.channel_name
+          );
+          if (channelExists) {
+            form.setFieldValue("channel", res.data.channel_name);
+          }
+          form.setFieldValue("content", res.data.content);
+        }
+      }
+    }
+    getArticleDetail();
+  }, [articleId, form, channelList]); // 添加channelList依赖
 
   return (
     <div style={{ maxWidth: 800, marginLeft: 0 }}>
@@ -214,7 +234,7 @@ export function PublishArticle() {
             href: '/backend/home',
           },
           {
-            title: '文章发布',
+            title: `${articleId ? '编辑文章' : '发布文章'}`,
             href: '/backend/publish',
           },
         ]}
@@ -247,7 +267,7 @@ export function PublishArticle() {
           />
         </Form.Item>
         <Form.Item label="封面">
-          <Form.Item name="type">
+          <Form.Item name="image_type">
             <Radio.Group onChange={onImageTypeChange}>
               <Radio value={1}>单图</Radio>
               <Radio value={0}>无图</Radio>
@@ -268,6 +288,7 @@ export function PublishArticle() {
               showUploadList
               maxCount={imageType}
               onChange={onUploadChange}
+              fileList={fileValue}
             >
               <div>
                 <PlusOutlined />

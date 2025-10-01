@@ -14,7 +14,7 @@ export function addArticleAPI(formData: {
   title: string;
   content: string;
   channel: string;
-  image_type: string;
+  image_type: number;
   image_url: string;
 }) {
   return request({
@@ -25,10 +25,15 @@ export function addArticleAPI(formData: {
 }
 
 //3. 获取文章列表
-export function getArticleListAPI() {
+//7. 筛选文章
+export function getArticleListAPI( formData: {
+  channel_name: string;
+}) {
+  console.log('测试', formData);
   return request({
-    url: "/api/backend/articlelist",
-    method: "GET",
+    url: `/api/backend/articlelist`,
+    method: 'PUT',
+    data: formData
   });
 }
 
@@ -55,6 +60,8 @@ export function editArticleAPI(
     title: string;
     content: string;
     channel: string;
+    image_type: number;
+    image_url: string;
   }
 ) {
   return request({

@@ -20,6 +20,16 @@ export function ListWrapper() {
     getArticleList();
   }, []);
   const Class = ['blog-item post-list-show left', 'blog-item post-list-show right'];
+
+  //对数据库的图像信息进行一定的处理
+  const imageGet = (image_url: string) => {
+    if (image_url == null) {
+      return "/statics/images/list_14.png"
+    } else {
+      return "https://" + image_url;
+    }
+  }
+
   function list_articles() {
     return (
       // /*tailwindcss */
@@ -46,7 +56,7 @@ export function ListWrapper() {
                   <img
                     className="w-full h-full object-cover
                       pointer-events-none transition-all duration-600 blur-0"
-                    src={"/statics/images/list_05.png"}
+                    src={imageGet(invoice.image_url)}
                     alt=""
                   />
                 </Link>
@@ -59,7 +69,7 @@ export function ListWrapper() {
               >
                 <div className="text-[#888] text-sm">
                   <i className="iconfont icon-time mr-1.5 text-[#989898] text-sm" />
-                  发布于
+                  发布于 : {invoice.publish_date}
                 </div>
                 <Link to={"/article/" + invoice.id} className="block my-4.5">
                   <h3 className="line-clamp-2 overflow-hidden break-words font-bold text-[#504e4e] transition-colors duration-200 ease-out hover:text-[#fe9600]">
@@ -101,53 +111,6 @@ export function ListWrapper() {
           );
         })}
       </div>
-      //   {data.map((invoice, index) => {
-      //     return (
-      //       <div className={Class[index % Class.length]} key={index}>
-      //         <div className='post-thumb'>
-      //           <Link to={'/article/' + invoice.id}>
-      //             <img src={"/statics/images/list_05.png"} alt="" />
-      //           </Link>
-      //         </div>
-      //         <div className='post-content-wrap'>
-      //           <div className='post-content'>
-      //             <div className='post-date'>
-      //               <i className='iconfont icon-time' />
-      //               发布于
-      //             </div>
-      //             <Link to={'/article/' + invoice.id} className='post-title'>
-      //               <h3>{invoice.title}</h3>
-      //             </Link>
-      //             <div className='post-meta'>
-      //               <span>
-      //                 <i className='iconfont icon-attention_light' />
-      //                 热度
-      //               </span>
-      //               <span className='comments-number'>
-      //                 <i className='iconfont icon-icon_mark' />
-      //                 评论
-      //               </span>
-      //               {invoice.channel_name && <span>
-      //                 <i className='iconfont icon-icon_file' />
-      //                 {invoice.channel_name}
-      //               </span>}
-      //             </div>
-      //             <div className='float-content'>
-      //               <p>{invoice.content.replace(/<[^>]+>/g, "")}</p>
-      //               <div className='post-bottom'>
-      //                 <Link to={'/article/' + invoice.id}>
-      //                   <i className='iconfont icon-icon_caidan' />
-      //                 </Link>
-      //               </div>
-      //             </div>
-      //           </div>
-      //         </div>
-      //       </div>
-      //     )
-      //   })}
-      // </div>
-
-
     );
   }
 

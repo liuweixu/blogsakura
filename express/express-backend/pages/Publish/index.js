@@ -2,6 +2,7 @@ import express from "express";
 import pool from "../../../utils/mysql-pool.js";
 import cors from "cors";
 import { Snowflake } from "@sapphire/snowflake";
+import dayjs from 'dayjs';
 
 // 创建路由对象
 const router = express.Router();
@@ -36,7 +37,6 @@ router.get("/backend/channels", async (req, res) => {
 router.post("/backend/article", async (req, res) => {
   try {
     const { title, content, channel, image_type, image_url } = req.body;
-    console.log("测试", image_type, image_url );
     if ( !title || !content || !channel ) {
       return res.status(400).json({
         success: false,
@@ -55,10 +55,13 @@ router.post("/backend/article", async (req, res) => {
         message: "channel不存在",
       });
     }
+    // 添加发布时间
+    const publish_date = dayjs().format('YYYY/MM/DD HH:mm:ss');
+    // console.log('发布时间', publish_date);
     const channel_id = channelRows[0].id;
     const [result] = await pool.query(
-      "insert into article (id, title, content, channel_id, image_type, image_url) values (?, ?, ?, ?, ?, ?)",
-      [id, title, content, channel_id, image_type, image_url]
+      "insert into article (id, title, content, channel_id, image_type, image_url, publish_date, edit_date) values (?, ?, ?, ?, ?, ?, ?, ?)",
+      [id, title, content, channel_id, image_type, image_url, publish_date, publish_date]
     );
     res.json({
       data: {
