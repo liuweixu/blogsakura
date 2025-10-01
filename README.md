@@ -25,6 +25,31 @@ React（19版本）、TypeScript/JavaScript、express、Nodejs、Antd、HTML、C
 
 然后在后端与数据库的交互上，我使用express这一轻量级框架，通过使用nodejs，实现与MySQL的交互。
 
+## 使用方式
+1. 先拷贝下载程序：
+```
+git clone git@github.com:liuweixu/blogsakura.git
+```
+
+2. 进入文件夹和使用npm安装
+```
+cd blogsakura
+npm install
+```
+
+3. 运行
+```
+npm run server
+npm run dev
+```
+**注意：** 该两行程序要在不同的cmd上运行。
+
+或者可以：
+```
+npm run dev:all
+```
+原因具体见：package.json 的设定
+
 # 个人说明
 十分抱歉，我弄出这个主要是想进一步巩固react的基础上，能够搭建自己喜欢的个人博客，之前我曾弄出以SpringBoot为核心的个人博客，但是由于当时对前端的不熟悉，只能用别人弄好的前端界面，这个界面我总觉得不太行，这也成了我心中的一根刺。
 
