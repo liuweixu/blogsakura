@@ -7,7 +7,7 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
 
 
@@ -15,6 +15,11 @@ const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   //路由跳转
   const navigate = useNavigate();
+  //高亮
+  //获取当前路径
+  const location = useLocation();
+  // console.log(location.pathname);
+  const selectedKey = location.pathname;
 
   const {
     token: { colorBgContainer, borderRadiusLG },
@@ -27,35 +32,35 @@ const App: React.FC = () => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={['1']}
-          // selectedKeys={[selectedKey]}
+          // defaultSelectedKeys={['1']}
+          selectedKeys={[selectedKey]}
           items={[
             {
-              key: '1',
+              key: '/backend/home',
               icon: <UserOutlined />,
               label: '首页',
               onClick: () => navigate('/backend/home'),
             },
             {
-              key: '2',
+              key: '/backend/publish',
               icon: <VideoCameraOutlined />,
               label: '发布文章',
               onClick: () => navigate('/backend/publish'),
             },
             {
-              key: '3',
+              key: '/backend/articlelist',
               icon: <UploadOutlined />,
               label: '文章列表',
               onClick: () => navigate('/backend/articlelist'),
             },
             {
-              key: '4',
+              key: '/backend/setting',
               icon: <UploadOutlined />,
               label: '设置',
               onClick: () => navigate('/backend/setting'),
             },
             {
-              key: '5',
+              key: '/backend/test',
               icon: <UploadOutlined />,
               label: '测试',
               onClick: () => navigate('/backend/test'),
