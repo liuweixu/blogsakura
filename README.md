@@ -5,7 +5,7 @@
 
 ## 技术栈
 基本是前端技术栈方面
-React（19版本）、TypeScript/JavaScript、express、Nodejs、Antd、HTML、CSS、MySQL等。
+React（19版本）、TypeScript/JavaScript、express、Nodejs、Antd、HTML、CSS、MySQL、Tailwind CSS等。
 
 ## 前端界面
 搭建该个人博客的初衷有多个：
@@ -53,11 +53,11 @@ npm run dev:all
 # 未来改进计划
 
 ## 前端
-- 在前端首页中，添加分页
-- 添加个人介绍页
-- 添加文件频道管理页
-- 处理富文本，让图片也能显示
+- [x] 在前端首页中，添加分页 （使用伪前端分页方式，未经过后端MySQL处理）
+- [ ] 添加个人介绍页
+- [ ] 添加文件频道管理页
+- [ ] 处理富文本，让图片也能显示
 
 ## 后端
-- 处理首页，学习添加Echart
-- 尝试引入SpringBoot
+- [ ] 处理首页，学习添加Echart
+- [ ] 尝试引入SpringBoot

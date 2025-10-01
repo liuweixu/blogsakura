@@ -3,22 +3,33 @@ import { getArticleHomeAPI } from "@/ui-frontend/apis/home";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./list_articles.css";
-// import './pagination.css'
+import { Pagination } from "antd";
+
 
 export function ListWrapper() {
+  //处理分页信息
+  const [currentPage, setCurrentPage] = useState(1);
+  const onPageChange = (page: number) => {
+    setCurrentPage(page);
+  }
+  const [count, setCount] = useState(0);
+  const pageSize = 10;
+
   const [data, setData] = useState<ArticleItem[]>([]);
   useEffect(() => {
     const getArticleList = async () => {
       try {
         const res = await getArticleHomeAPI();
         // 确保data是数组，否则使用空数组
-        setData(res.data.data); // 注意这个，后台上因为添加拦截中，加上res.data，而这个是没加上，所以要多一个data
+        setCount(res.data.data.length);
+        setData(res.data.data.slice((currentPage - 1) * pageSize, currentPage * pageSize)); // 注意这个，后台上因为添加拦截中，加上res.data，而这个是没加上，所以要多一个data
       } catch (error) {
         console.error("获取文章列表失败:", error);
       }
     };
     getArticleList();
-  }, []);
+  }, [currentPage]);
+
   const Class = ['blog-item post-list-show left', 'blog-item post-list-show right'];
 
   //对数据库的图像信息进行一定的处理
@@ -114,6 +125,7 @@ export function ListWrapper() {
     );
   }
 
+
   return (
     <div className="w-full">
       <div className="w-full h-auto mt-14 inline-block">
@@ -123,6 +135,15 @@ export function ListWrapper() {
         </h1>
       </div>
       {list_articles()}
+      <div style={{ display: "flex", justifyContent: "center", marginTop: 16 }}>
+        <Pagination
+          simple
+          current={currentPage}
+          pageSize={pageSize}
+          total={count}
+          onChange={onPageChange}
+        />
+      </div>
     </div>
   );
 }
