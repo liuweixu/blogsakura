@@ -13,6 +13,7 @@ const snowflake = new Snowflake(epoch);
 
 // 必须添加中间件解析请求体
 router.use(express.json());
+router.use(express.urlencoded({ extended: true }))
 // 允许跨域
 router.use(cors());
 
@@ -34,8 +35,9 @@ router.get("/backend/channels", async (req, res) => {
 // 往article表格添加一行数据
 router.post("/backend/article", async (req, res) => {
   try {
-    const { title, content, channel } = req.body;
-    if (!title || !content || !channel) {
+    const { title, content, channel, image_type, image_url } = req.body;
+    console.log("测试", image_type, image_url );
+    if ( !title || !content || !channel ) {
       return res.status(400).json({
         success: false,
         message: "缺少必填字段",
@@ -55,8 +57,8 @@ router.post("/backend/article", async (req, res) => {
     }
     const channel_id = channelRows[0].id;
     const [result] = await pool.query(
-      "insert into article (id, title, content, channel_id) values (?, ?, ?, ?)",
-      [id, title, content, channel_id]
+      "insert into article (id, title, content, channel_id, image_type, image_url) values (?, ?, ?, ?, ?, ?)",
+      [id, title, content, channel_id, image_type, image_url]
     );
     res.json({
       data: {

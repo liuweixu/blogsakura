@@ -14,6 +14,8 @@ export function addArticleAPI(formData: {
   title: string;
   content: string;
   channel: string;
+  image_type: string;
+  image_url: string;
 }) {
   return request({
     url: "/api/backend/article",

@@ -43,6 +43,9 @@ const tailLayout = {
 
 export function PublishArticle() {
   const [form] = Form.useForm();
+  const [cos, setCos] = useState<COS | null>(null);
+  const [fileValue, setFileValue] = useState([]);
+  const [imageType, setImageType] = useState(Number);
 
   const [channelList, setChannelList] = useState<ChannelItem[]>([]);
   useEffect(() => {
@@ -97,13 +100,15 @@ export function PublishArticle() {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = (values: any) => {
-    console.log(values);
     const { title, channel, content } = values;
     const reqData = {
       title,
       content,
-      channel
+      channel,
+      image_type: imageType.toString(),
+      image_url: fileValue.map(item => item.response.Location)[0]
     }
+    console.log(reqData)
     addArticleAPI(reqData);
   };
 
@@ -114,8 +119,6 @@ export function PublishArticle() {
   /**
    * 上传图像部分 + 腾讯云COS
    */
-  const [cos, setCos] = useState<COS | null>(null);
-  const [valueList, setValueList] = useState([]);
   useEffect(() => {
     const fetchdata = async () => {
       const res = await getUploadKeyAPI();
@@ -166,10 +169,10 @@ export function PublishArticle() {
         },
         (err, data) => {
           if (err) {
-            console.error("上传失败:", err);
+            // console.error("上传失败:", err);
             onError(err);
           } else {
-            console.log("上传成功:", data);
+            // console.log("上传成功:", data);
             onSuccess(data);
             message.success("上传成功");
           }
@@ -184,8 +187,7 @@ export function PublishArticle() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onUploadChange = (value: any) => {
     // console.log('正在上传中', value);
-    setValueList(value.fileList);
-    console.log(valueList);
+    setFileValue(value.fileList);
   }
 
   /**
@@ -196,7 +198,7 @@ export function PublishArticle() {
    * 无图的时候，利用后端处理，添加随机图像就行
    */
 
-  const [imageType, setImageType] = useState(Number);
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onImageTypeChange = (e: any) => {
     setImageType(e.target.value);

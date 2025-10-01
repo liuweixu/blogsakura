@@ -24,7 +24,6 @@ router.get('/cos', (req, res) => {
         appId: COSUpload.COSConfig.appId
       }
     });
-    console.log('密钥成功获取');
   } catch (error) {
     res.status(500).json({ error: '生成签名失败' });
   }
