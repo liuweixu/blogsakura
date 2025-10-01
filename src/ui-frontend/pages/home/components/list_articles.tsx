@@ -42,13 +42,13 @@ export function ListWrapper() {
             >
               <div
                 className={`${index % 2 === 0
-                    ? "float-right w-[55%] overflow-hidden"
-                    : "float-left w-[55%] overflow-hidden"
+                  ? "float-right w-[55%] overflow-hidden"
+                  : "float-left w-[55%] overflow-hidden"
                   }`}
               >
                 {/**对图片处理 */}
                 <Link
-                  to={"/backend/articlelist"}
+                  to={"/article/" + invoice.id}
                   className="relative h-75 block bg-no-repeat bg-cover 
                     hover:scale-110 transition-all
                     duration-600 hover:rotate-3 rounded-r-lg rounded-l-none"
@@ -63,8 +63,8 @@ export function ListWrapper() {
               </div>
               <div
                 className={`relative inline-block w-2/5 mt-7.5 mr-2.5 mb-2.5 ${index % 2 === 0
-                    ? "float-right pr-8 pl-0 text-left"
-                    : "float-left pl-8 pr-0 text-right"
+                  ? "float-right pr-8 pl-0 text-left"
+                  : "float-left pl-8 pr-0 text-right"
                   }`}
               >
                 <div className="text-[#888] text-sm">

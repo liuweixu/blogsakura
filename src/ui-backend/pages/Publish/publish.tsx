@@ -26,10 +26,12 @@ import { useSearchParams } from "react-router-dom";
 import { Button, Form, Input, Select, Space, Breadcrumb, Radio, type UploadFile } from 'antd';
 import ReactQuill from 'react-quill-new';
 import './index.css';
-import { Upload, message } from "antd";
+import { Upload, message, notification } from "antd";
 import { getUploadKeyAPI } from "@/ui-backend/apis/upload";
 import COS from "cos-js-sdk-v5";
 import { PlusOutlined } from '@ant-design/icons';
+import type { NotificationArgsProps } from 'antd';
+
 
 const { Option } = Select;
 
@@ -63,6 +65,9 @@ export function PublishArticle() {
    * 
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  //提交成功提示
+  const [notify, contextHolder] = notification.useNotification();
   const onFinish = (values: any) => {
     const { title, channel, content } = values;
     const reqData = {
@@ -72,12 +77,16 @@ export function PublishArticle() {
       image_type: imageType,
       image_url: fileValue.map(item => item.response.Location)[0]
     }
-    console.log(reqData)
     if (articleId) {
       editArticleAPI(articleId, reqData);
     } else {
       addArticleAPI(reqData);
     }
+    notify.success({
+      message: '提交成功',
+      description: '文章已保存',
+      placement: 'bottomRight'
+    })
   };
 
   const onReset = () => {
@@ -224,8 +233,10 @@ export function PublishArticle() {
     getArticleDetail();
   }, [articleId, form, channelList]); // 添加channelList依赖
 
+
   return (
     <div style={{ maxWidth: 800, marginLeft: 0 }}>
+      {contextHolder}
       <Breadcrumb
         separator=">"
         items={[
@@ -262,8 +273,8 @@ export function PublishArticle() {
           <ReactQuill
             theme="snow"
             className="publish-quill"
-            value={form.getFieldValue("richtext") || ""}
-            onChange={value => form.setFieldValue("richtext", value)}
+            value={form.getFieldValue("content") || ""}
+            onChange={value => form.setFieldValue("content", value)}
           />
         </Form.Item>
         <Form.Item label="封面">

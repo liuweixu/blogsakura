@@ -37,7 +37,7 @@ export function Feature() {
               id="feature-item"
               className="relative h-40 shadow-[1px_3px_3px_rgba(0,0,0,0.3)] overflow-hidden rounded-2xl"
             >
-              <Link to={"/backend/articlelist"} className="h-full block group">
+              <Link to={"/article/" + invoice.id} className="h-full block group">
                 <div
                   id="img-box"
                   className="transition-all duration-350 ease-in-out scale-100 h-full group-hover:scale-120"
